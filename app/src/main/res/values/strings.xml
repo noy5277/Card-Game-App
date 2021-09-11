@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Card Game App</string>
+    <string name="log_out">Log out from FireBase</string>
+    <string name="settings">Settings</string>
 </resources>
