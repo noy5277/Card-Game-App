@@ -2,9 +2,4 @@
     <string name="app_name">Card Game App</string>
     <string name="log_out">Log out from FireBase</string>
     <string name="settings">Settings</string>
-    <string name="options">Options</string>
-    <string name="eng">English</string>
-    <string name="heb">Hebrew</string>
-    <string name="sound">Sound</string>
-    <string name="choose">Choose Language</string>
 </resources>

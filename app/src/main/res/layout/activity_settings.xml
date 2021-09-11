@@ -6,40 +6,4 @@
     android:layout_height="match_parent"
     tools:context=".Settings">
 
-    <TextView
-        android:id="@+id/options"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/options"
-        android:textSize="34sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/btnOpenMenu"
-        android:layout_width="160dp"
-        android:layout_height="61dp"
-        android:layout_marginBottom="150dp"
-        android:onClick="PopupMenu"
-        android:text="@string/choose"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.331" />
-
-    <Button
-        android:id="@+id/sound"
-        android:layout_width="157dp"
-        android:layout_height="57dp"
-        android:text="@string/sound"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
