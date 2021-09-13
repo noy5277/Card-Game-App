@@ -1,3 +1,4 @@
+@@ -1,15 +1,37 @@
 # Built application files
 /*/build/
 
@@ -26,9 +27,22 @@ local.properties
 .idea/scopes/scope_settings.xml
 .idea/vcs.xml
 *.iml
+.gradle
+/local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
 
 # OS-specific files
 .DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
 .DS_Store?
 ._*
 .Spotlight-V100
