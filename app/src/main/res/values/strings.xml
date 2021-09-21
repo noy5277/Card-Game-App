@@ -7,4 +7,7 @@
     <string name="heb">Hebrew</string>
     <string name="sound">Sound</string>
     <string name="choose">Choose Language</string>
+    <string name="login_B_Text">LOGIN</string>
+    <string name="string_login_b_text">LOGIN</string>
+    <string name="email_address">Email Address</string>
 </resources>
