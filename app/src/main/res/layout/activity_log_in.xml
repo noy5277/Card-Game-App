@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background2"
+    tools:context=".userLogIn.LogInActivity">
+
+    <ImageView
+        android:id="@+id/imageViewLogo"
+        android:layout_width="427dp"
+        android:layout_height="404dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/logo3"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="-65dp"
+        android:contentDescription="TODO" />
+
+    <EditText
+        android:id="@+id/logInEmailText"
+        android:layout_width="249dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/common_google_signin_btn_text_light"
+        android:backgroundTint="@color/design_default_color_surface"
+        android:ems="10"
+        android:hint="@string/email_address"
+        android:inputType="textEmailAddress"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewLogo" />
+
+    <Button
+        android:id="@+id/loginB"
+        android:layout_width="223dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="152dp"
+        android:background="@color/colorAccent"
+        android:text="@string/string_login_b_text"
+        android:textColor="#212121"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logInEmailText"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <EditText
+        android:id="@+id/LogInPasswordText"
+        android:layout_width="249dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="33dp"
+        android:background="@drawable/common_google_signin_btn_text_light"
+        android:backgroundTint="@color/design_default_color_surface"
+        android:ems="10"
+
+        android:hint="@string/fui_password_hint"
+        android:inputType="textPassword"
+        app:layout_constraintBottom_toTopOf="@+id/registerLayoutBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logInEmailText"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/registerLayoutBtn"
+        android:layout_width="98dp"
+        android:layout_height="38dp"
+        android:layout_marginBottom="12dp"
+        android:text="Register"
+        android:textColor="#FF4081"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/loginB"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

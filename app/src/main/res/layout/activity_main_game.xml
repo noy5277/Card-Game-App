@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/main_game_background"
+    tools:context=".MainGame">
+
+    <Button
+        android:id="@+id/scoreListbtn"
+        android:layout_width="215dp"
+        android:layout_height="63dp"
+        android:layout_marginTop="20dp"
+        android:text="scores"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/startGameBtn"
+        android:background="@color/colorAccent"
+        />
+
+    <Button
+        android:id="@+id/startGameBtn"
+        android:layout_width="215dp"
+        android:layout_height="63dp"
+        android:layout_marginTop="404dp"
+        android:text="Start game"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/colorAccent"
+
+        />
+
+    <Button
+        android:id="@+id/settingsBtn"
+        android:layout_width="215dp"
+        android:layout_height="63dp"
+        android:layout_marginTop="32dp"
+        android:text="settings"
+        android:background="@color/colorAccent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scoreListbtn" />
+
+    <Button
+        android:id="@+id/logOutBtn"
+        android:layout_width="98dp"
+        android:layout_height="48dp"
+        android:text="logout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

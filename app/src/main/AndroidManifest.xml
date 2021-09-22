@@ -10,6 +10,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CardGameApp">
         <activity
+            android:name=".MainGame"
+            android:exported="true" />
+        <activity
+            android:name=".userLogIn.RegistrUserActivity"
+            android:exported="true" />
+        <activity
+            android:name=".userLogIn.LogInActivity"
+            android:exported="true" />
+        <activity
             android:name=".Settings"
             android:exported="true" />
         <activity
