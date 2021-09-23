@@ -10,4 +10,10 @@
     <string name="login_B_Text">LOGIN</string>
     <string name="string_login_b_text">LOGIN</string>
     <string name="email_address">Email Address</string>
+    <string name="Different">Different</string>
+    <string name="Similar">Similar</string>
+    <string name="What_is_in_the_picture">What is in the picture</string>
+    <string name="back">Back</string>
+
+
 </resources>

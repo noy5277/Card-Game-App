@@ -50,6 +50,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         signInBtn.setOnClickListener(this);
         mAuth = FirebaseAuth.getInstance();
     }
+
+
     @Override
     public void onClick(View v) {
         switch (v.getId()){
