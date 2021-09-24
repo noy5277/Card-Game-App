@@ -18,7 +18,7 @@ public class Category extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category);
 
-        OpenDifferentButton = (Button) findViewById(R.id.different);
+        OpenDifferentButton =findViewById(R.id.different);
         OpenDifferentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -26,7 +26,7 @@ public class Category extends AppCompatActivity {
             }
         });
 
-        backMainGame = (Button) findViewById(R.id.back);
+        backMainGame =findViewById(R.id.back);
         backMainGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
