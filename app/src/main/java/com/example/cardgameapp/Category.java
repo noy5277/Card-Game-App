@@ -7,26 +7,24 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class Category extends AppCompatActivity {
-    private Button backMainGame;
-    private Button OpenDifferentButton;
+import com.example.cardgameapp.gamesCategorys.WhatInThePicture;
 
+public class Category extends AppCompatActivity {
+    private Button backMainGame,whatIsInThePictureBtn;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category);
-
-        OpenDifferentButton =findViewById(R.id.different);
-        OpenDifferentButton.setOnClickListener(new View.OnClickListener() {
+        whatIsInThePictureBtn = (Button) findViewById(R.id.what_is_in_the_picture_btn);
+        whatIsInThePictureBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                OpenDifferent();
+            public void onClick(View v) {
+                startActivity(new Intent(Category.this, WhatInThePicture.class));
             }
         });
-
-        backMainGame =findViewById(R.id.back);
+        backMainGame = (Button) findViewById(R.id.back);
         backMainGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -35,10 +33,6 @@ public class Category extends AppCompatActivity {
         });
     }
 
-    public void OpenDifferent() {
-        Intent intent = new Intent(this, DifferentGame.class);
-        startActivity(intent);
-    }
     public void OpenMainGame() {
         Intent intent = new Intent(this,MainGame.class);
         startActivity(intent);

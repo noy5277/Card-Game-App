@@ -25,23 +25,27 @@
         android:layout_height="48dp"
         android:layout_marginStart="76dp"
         android:layout_marginTop="16dp"
-        android:background="@color/white"
+        android:background="@drawable/edit_text_backgroud"
         android:ems="10"
         android:hint="Email"
+        android:paddingLeft="20dp"
+
         android:inputType="textEmailAddress"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageViewLogo" />
 
     <EditText
         android:id="@+id/registerPasswordInput"
+
         android:layout_width="243dp"
         android:layout_height="48dp"
         android:layout_marginStart="76dp"
         android:layout_marginTop="32dp"
-        android:background="@color/white"
+        android:background="@drawable/edit_text_backgroud"
         android:ems="10"
         android:hint="New password"
         android:inputType="textPassword"
+        android:paddingLeft="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/registerNameInput" />
 
@@ -51,8 +55,9 @@
         android:layout_height="48dp"
         android:layout_marginStart="76dp"
         android:layout_marginTop="32dp"
-        android:background="@color/white"
         android:ems="10"
+        android:paddingLeft="20dp"
+        android:background="@drawable/edit_text_backgroud"
         android:hint="First and last name"
         android:inputType="textPersonName"
         app:layout_constraintStart_toStartOf="parent"
@@ -64,7 +69,7 @@
         android:layout_height="48dp"
         android:layout_marginStart="96dp"
         android:layout_marginTop="32dp"
-        android:background="@color/colorAccent"
+        android:background="@drawable/pink_rect_normal"
         android:text="REGISTER"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
