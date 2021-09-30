@@ -1,47 +1,57 @@
 package com.example.cardgameapp.gamesCategorys;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.graphics.Color;
+import android.content.Intent;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.cardgameapp.Category;
 import com.example.cardgameapp.R;
-import com.example.cardgameapp.userLogIn.RegistrUserActivity;
+import com.example.cardgameapp.Image;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 public class WhatInThePicture extends AppCompatActivity {
 
     //-----------Test-------------
-
-    private String picPath = "drawable/whatinthepicturetest.jpg";
-    private String answer = "lionas";
-    private int level = 1;
     private int hints = 3;
     //---------------------------
-    private WhatInThePictureObj game = new WhatInThePictureObj(picPath, answer, level);
-    private ImageView levelImage;
+    private WhatInThePictureObj gameLevel;
+    private List<WhatInThePictureObj> gameLevels = new ArrayList<WhatInThePictureObj>();
+    private ImageView levelImage,backBtn;
     private LinearLayout answerLettersLayout;
     private LinearLayout lettersLayoutl;
     private DisplayMetrics displayMetrics;
-    public HashMap<Integer, TextView> answerTextView = new HashMap<Integer, TextView>();// Move up
-    HashMap<String, TextView> lettersTextView = new HashMap<String, TextView>();// Move up
+    private Button hintBtn;
+    private TextView gameLevelText;
+    public HashMap<TextView, TextView> answerTextView = new HashMap<TextView, TextView>();// Move up
+    private String inputWord="";
+    FirebaseDatabase fAuth;
+
 
     public int lastIndex = 0;
 
@@ -50,27 +60,34 @@ public class WhatInThePicture extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_what_in_the_picture);
 
-        //levelImage = (ImageView) findViewById(R.id.WITPlevelImage);
+        levelImage = (ImageView) findViewById(R.id.WITPlevelImage);
+        backBtn =  (ImageView) findViewById(R.id.WITPbackBtn);
         answerLettersLayout = (LinearLayout) findViewById(R.id.WITPanswerLetters);
         lettersLayoutl = (LinearLayout) findViewById(R.id.WITPletters);
+        gameLevelText = (TextView) findViewById(R.id.WITPlevel);
         displayMetrics = new DisplayMetrics();
+        hintBtn = (Button) findViewById(R.id.WITPhint);
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        buildGameLevel();
+        getLeves();
     }
 
+
     private void buildGameLevel() {
-       // setImage();
+        setImage();
         setAnswerletters();
         setletters();
+        backButton();
+        setLevelNumber(gameLevel.getLevel());
     }
 
     private void setImage() {
-        levelImage.setImageResource(R.drawable.whatinthepicturetest);
+        int imageResource = getResources().getIdentifier(gameLevel.getImage().getName(), "drawable", getPackageName());
+        levelImage.setImageResource(imageResource);
     }
 
     private void setAnswerletters() {
         LayoutInflater inflater = getLayoutInflater();
-        int answerSize = game.getAnswer().length(); //optionjs
+        int answerSize = gameLevel.getImage().getAnswer().length(); //optionjs
 
         for (int i = 0; i < answerSize; i++) {
             View to_add = inflater.inflate(R.layout.text_answer_layout,
@@ -83,29 +100,24 @@ public class WhatInThePicture extends AppCompatActivity {
 
                 @Override
                 public void onClick(View v) {
-                    if (!textView.getText().toString().isEmpty()) {
-                        String oldLetter = textView.getText().toString();
-                        textView.setText("");
-                        lettersTextView.get(oldLetter).setVisibility(View.VISIBLE);
-                        for (int i = 0; i < lastIndex; i++) {
-                            if (answerTextView.get(i).getText().toString().isEmpty())
-                                lastIndex = answerTextView.get(i).getId();
-                        }
-                    }
-
+                    TextView removeLettter = (TextView) answerTextView.get(textView);
+                    removeLettter.setVisibility(View.VISIBLE);
+                    textView.setText("");
+                    answerTextView.replace(textView,null);
+                    lastIndex--;
+                    inputWord.substring(0, inputWord.length() - 1);
                 }
 
             });
             answerLettersLayout.addView(to_add);
-            answerTextView.put(i, textView);
+            answerTextView.put(textView,null);
         }
     }
 
     private void setletters() {
-        int answerSize = game.getAnswer().length();
         Random r = new Random();
         int amountOfLetters = 14;
-        List lettersList = randomListOfWords( game.getAnswer(),amountOfLetters);
+        List lettersList = randomListOfWords( gameLevel.getImage().getAnswer(),amountOfLetters);
 
         //----style ----
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT);
@@ -121,44 +133,41 @@ public class WhatInThePicture extends AppCompatActivity {
             newRow.setOrientation(LinearLayout.HORIZONTAL);
             newRow.setLayoutParams(params);
 
-            for (int i = 0; i < amountOfLetters/2; i++) {
+            for (int i = 0, index = 0; i < amountOfLetters/2; i++,index++) {
 
                 View to_add = inflater.inflate(R.layout.letter,
                         lettersLayoutl, false);
+
                 TextView textView = (TextView) to_add.findViewById(R.id.letter);
                 textView.setTypeface(textView.getTypeface(), Typeface.BOLD);
                 textView.setText(String.valueOf(lettersList.get(lettersList.size() - 1)));
-
+                textView.setId(index+lettersList.get(lettersList.size() - 1).hashCode());
                 textView.setOnClickListener(new View.OnClickListener() {
 
                     @Override
                     public void onClick(View v) {
-                        if (lastIndex < game.getAnswer().length()) {
-                            while (!answerTextView.get(lastIndex).getText().toString().isEmpty())
+                        for (Map.Entry<TextView, TextView> entry : answerTextView.entrySet()) {
+                            TextView key = entry.getKey();
+                            TextView value = entry.getValue();
+                            if (value==null && key.getId() == lastIndex) {
+                                answerTextView.replace(key, textView);
+                                key.setText(textView.getText());
+                                textView.setVisibility(View.INVISIBLE);
                                 lastIndex++;
 
-                            answerTextView.get(lastIndex).setText(textView.getText());
-                            textView.setVisibility(View.INVISIBLE);
-                            lastIndex++;
-                        }
-                        if (lastIndex == game.getAnswer().length()) {
-                            for (int i = 0; i < game.getAnswer().length(); i++) {
-
-                                if (!answerTextView.get(i).getText().toString().equals(String.valueOf(game.getAnswer().charAt(i)).toString())) {
-                                    Toast.makeText(WhatInThePicture.this, "Faild", Toast.LENGTH_LONG).show();
-                                } else {
-                                    Toast.makeText(WhatInThePicture.this, "succesd", Toast.LENGTH_LONG).show();
+                                inputWord = inputWord + key.getText();
+                                if (gameLevel.getImage().getAnswer().equals(inputWord) && gameLevel.getImage().getAnswer().length() == inputWord.length()) {
+                                    cleanLevel();
+                                    setGameLevelHendler(gameLevel.getLevel() + 1);
 
                                 }
+                                break;
+
                             }
-
                         }
-
                     }
-
                 });
                 newRow.addView(to_add);
-                lettersTextView.put(String.valueOf(lettersList.get(lettersList.size() - 1)), textView);
                 lettersList.remove(lettersList.size() - 1);
 
             }
@@ -167,6 +176,50 @@ public class WhatInThePicture extends AppCompatActivity {
         }
     }
 
+    private void setLevelNumber(int level){
+        //gameLevel.gameLevelText(String.valueOf(level));
+    }
+    private void backButton(){
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(WhatInThePicture.this, Category.class));
+
+            }
+        });
+    }
+    private void hintBtn(View  v){
+
+    }
+    private void getLeves(){
+        fAuth = FirebaseDatabase.getInstance();
+        DatabaseReference reference = fAuth.getReference("WhatsInThePicture");
+        reference.addValueEventListener(new ValueEventListener(){
+            int levelCounter = 1;
+
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot datasnapshot: snapshot.getChildren()){
+                    Image newImage = datasnapshot.getValue(Image.class);
+                    gameLevels.add(new WhatInThePictureObj(levelCounter++,newImage));
+                }
+                setGameLevelHendler(1);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
+    private void  setGameLevelHendler(int level){
+        if (gameLevels.size()> level) {
+            gameLevel = gameLevels.get(level-1);
+            buildGameLevel();
+        }
+
+    }
     private List randomListOfWords(String WordToinsert, int size) {
         Random r = new Random();
         List list = new ArrayList();
@@ -181,5 +234,13 @@ public class WhatInThePicture extends AppCompatActivity {
         }
         Collections.shuffle(list);
         return list;
+    }
+
+    private void cleanLevel(){
+        answerLettersLayout.removeAllViews();
+        lettersLayoutl.removeAllViews();
+        answerTextView.clear();
+        lastIndex = 0;
+        inputWord = "";
     }
 }

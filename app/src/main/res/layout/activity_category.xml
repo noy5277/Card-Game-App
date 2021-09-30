@@ -35,7 +35,7 @@
         tools:background="#3F51B5" />
 
     <Button
-        android:id="@+id/what_is_in_the_picture"
+        android:id="@+id/what_is_in_the_picture_btn"
         android:layout_width="200dp"
         android:layout_height="50dp"
         android:text="@string/What_is_in_the_picture"

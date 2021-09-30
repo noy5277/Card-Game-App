@@ -1,23 +1,10 @@
 package com.example.cardgameapp.gamesCategorys;
 
+import com.example.cardgameapp.Image;
+
 public class WhatInThePictureObj {
-    private String picturePath;
     private int level;
-    private String answer;
-
-    public WhatInThePictureObj(String picturePath, String answer,int level) {
-        this.picturePath = picturePath;
-        this.level = level;
-        this.answer = answer;
-    }
-
-    public String getPicturePath() {
-        return picturePath;
-    }
-
-    public void setPicturePath(String picturePath) {
-        this.picturePath = picturePath;
-    }
+    private Image image;
 
     public int getLevel() {
         return level;
@@ -27,14 +14,18 @@ public class WhatInThePictureObj {
         this.level = level;
     }
 
-    public String getAnswer() {
-        return answer;
+    public Image getImage() {
+        return image;
     }
 
-    public void setAnswer(String answer) {
-        this.answer = answer;
+    public void setImage(Image image) {
+        this.image = image;
     }
 
+    public WhatInThePictureObj(int level, Image image) {
+        this.level = level;
+        this.image = image;
+    }
     public WhatInThePictureObj() {
     }
 }
