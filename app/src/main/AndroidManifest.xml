@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CardGameApp">
         <activity
+            android:name=".gamesCategorys.WhatInThePicture"
+            android:exported="true" />
+        <activity
+            android:name=".Category"
+            android:exported="true" />
+        <activity
             android:name=".MainGame"
             android:exported="true" />
         <activity

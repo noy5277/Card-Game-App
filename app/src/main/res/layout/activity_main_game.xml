@@ -16,7 +16,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/startGameBtn"
-        android:background="@color/colorAccent"
+        android:background="@drawable/pink_rect_normal"
         />
 
     <Button
@@ -28,7 +28,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="@color/colorAccent"
+        android:background="@drawable/pink_rect_normal"
 
         />
 
@@ -38,7 +38,7 @@
         android:layout_height="63dp"
         android:layout_marginTop="32dp"
         android:text="settings"
-        android:background="@color/colorAccent"
+        android:background="@drawable/pink_rect_normal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/scoreListbtn" />
