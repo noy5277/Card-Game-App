@@ -11,6 +11,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.cardgameapp.Avatar;
+import com.example.cardgameapp.Database.DaoFirebaseImpl;
+import com.example.cardgameapp.Database.IDao;
 import com.example.cardgameapp.MainActivity;
 import com.example.cardgameapp.MainGame;
 import com.example.cardgameapp.R;
@@ -22,9 +25,12 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class RegistrUserActivity extends AppCompatActivity implements View.OnClickListener {
-    EditText mFullName,mEmail,mPassword;
+    EditText mFullName,mEmail,mPassword,mUserName;
     Button mRegister;
     FirebaseAuth fAuth;
+    private User user;
+    private static IDao DB;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,10 +40,11 @@ public class RegistrUserActivity extends AppCompatActivity implements View.OnCli
         mFullName = (EditText)findViewById(R.id.registerNameInput);
         mEmail = (EditText)findViewById(R.id.registerEmailInput);
         mPassword = (EditText)findViewById(R.id.registerPasswordInput);
-
+        mUserName=(EditText)findViewById(R.id.registerUserNameInput);
         mRegister = (Button)findViewById(R.id.registerBtn);
         mRegister.setOnClickListener(this);
         fAuth = FirebaseAuth.getInstance();
+        DB= DaoFirebaseImpl.getInstance();
     }
 
     @Override
@@ -50,9 +57,14 @@ public class RegistrUserActivity extends AppCompatActivity implements View.OnCli
         }
     }
     private void registerUser(){
-        String  email = mEmail.getText().toString().trim();
-        String  fullName = mFullName.getText().toString().trim();
-        String  passWord = mPassword.getText().toString().trim();
+
+        String  email = mEmail.getText().toString();
+        String  fullName = mFullName.getText().toString();
+        String  passWord = mPassword.getText().toString();
+        String  userName=mUserName.getText().toString();
+        Intent avatar=new Intent(this, Avatar.class);
+        startActivity(avatar);
+        user=new User(fullName,email,userName,passWord,R.drawable.female_2);
 
         if (fullName.isEmpty()){
             mFullName.setError("Full name is requried");
@@ -74,38 +86,21 @@ public class RegistrUserActivity extends AppCompatActivity implements View.OnCli
             mPassword.requestFocus();
             return;
         }
-        fAuth.createUserWithEmailAndPassword(email,passWord)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()){
-                            User user = new User(fullName,email);
+        if (userName.isEmpty()) {
+            mUserName.setError("mPassword is requried");
+            mUserName.requestFocus();
+            return;
+        }
 
-                            FirebaseDatabase.getInstance().getReference("Users")
-                                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()){
-                                        Toast.makeText(RegistrUserActivity.this,"User has been registered",Toast.LENGTH_LONG).show();
-                                        startActivity(new Intent(RegistrUserActivity.this, MainGame.class));
-
-                                    }
-                                    else{
-                                        Toast.makeText(RegistrUserActivity.this,"Faild to registered user ",Toast.LENGTH_LONG).show();
-
-                                    }
-                                }
-                            });
-                        }
-                        else{
-                            Toast.makeText(RegistrUserActivity.this,"Faild to registered user ",Toast.LENGTH_LONG).show();
-
-                        }
-
-                    }
-                });
-
+        try{
+            DB.writeNewUser(user);
+            Toast.makeText(RegistrUserActivity.this,"User has been registered",Toast.LENGTH_LONG).show();
+            startActivity(new Intent(RegistrUserActivity.this, MainGame.class));
+        }catch (Exception e)
+        {
+            Toast.makeText(RegistrUserActivity.this,"register failed",Toast.LENGTH_LONG).show();
+            startActivity(new Intent(RegistrUserActivity.this, MainActivity.class));
+        }
 
     }
 }
