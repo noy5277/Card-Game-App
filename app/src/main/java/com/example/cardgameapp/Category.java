@@ -7,7 +7,7 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.cardgameapp.gamesCategorys.Different_Game;
+import com.example.cardgameapp.gamesCategorys.DifferentGame;
 import com.example.cardgameapp.gamesCategorys.WhatInThePicture;
 
 public class Category extends AppCompatActivity {
@@ -45,7 +45,7 @@ public class Category extends AppCompatActivity {
     }
 
     private void OpenDifferentGame() {
-        Intent intent = new Intent(this, Different_Game.class);
+        Intent intent = new Intent(this, DifferentGame.class);
         startActivity(intent);
     }
 

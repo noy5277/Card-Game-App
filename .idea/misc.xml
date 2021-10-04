@@ -24,10 +24,13 @@
         <entry key="..\:/HitFinalProject/Card-Game-App/app/src/main/res/menu/language_menu.xml" value="0.36666666666666664" />
         <entry key="..\:/HitFinalProject/Card-Game-App/app/src/main/res/menu/menu.xml" value="0.36666666666666664" />
         <entry key="..\:/HitFinalProject/Card-Game-App/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.228125" />
+        <entry key="..\:/Users/Mordoh/Documents/GitHub/Card-Game-App/app/src/main/res/drawable/ic_timer.xml" value="0.20677083333333332" />
         <entry key="..\:/Users/Mordoh/Documents/GitHub/Card-Game-App/app/src/main/res/layout/activity_category.xml" value="0.176" />
-        <entry key="..\:/Users/Mordoh/Documents/GitHub/Card-Game-App/app/src/main/res/layout/activity_different_game.xml" value="0.13125" />
-        <entry key="..\:/Users/Mordoh/Documents/GitHub/Card-Game-App/app/src/main/res/layout/activity_different_game2.xml" value="0.13125" />
+        <entry key="..\:/Users/Mordoh/Documents/GitHub/Card-Game-App/app/src/main/res/layout/activity_different_game.xml" value="0.264" />
+        <entry key="..\:/Users/Mordoh/Documents/GitHub/Card-Game-App/app/src/main/res/layout/activity_different_game2.xml" value="0.264" />
         <entry key="..\:/Users/Mordoh/Documents/GitHub/Card-Game-App/app/src/main/res/layout/activity_main_game.xml" value="0.13072916666666667" />
+        <entry key="..\:/Users/Mordoh/Documents/GitHub/Card-Game-App/app/src/main/res/layout/activity_what_in_the_picture.xml" value="0.19479166666666667" />
+        <entry key="..\:/Users/Mordoh/Documents/GitHub/Card-Game-App/app/src/main/res/layout/text_answer_layout.xml" value="0.2" />
         <entry key="..\:/Users/noyz/AndroidStudioProjects/CardGameApp/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/Users/noyz/AndroidStudioProjects/CardGameApp/app/src/main/res/layout/activity_settings.xml" value="0.264" />
         <entry key="..\:/Users/noyz/AndroidStudioProjects/CardGameApp/app/src/main/res/menu/language_menu.xml" value="0.2638888888888889" />
