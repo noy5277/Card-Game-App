@@ -10,4 +10,10 @@
     <string name="sound">קול</string>
     <string name="choose">בחר שפה</string>
     <string name="avatar">מהי הדמות שלך</string>
+    <string name="back">חזור</string>
+    <string name="What_is_in_the_picture">מה בתמונה</string>
+    <string name="Similar">מה דומה</string>
+    <string name="Different">מה שונה</string>
+    <string name="string_login_b_text">התחבר</string>
+    <string name="email_address">אימייל</string>
 </resources>

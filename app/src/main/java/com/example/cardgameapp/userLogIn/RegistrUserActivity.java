@@ -62,8 +62,8 @@ public class RegistrUserActivity extends AppCompatActivity implements View.OnCli
         String  fullName = mFullName.getText().toString();
         String  passWord = mPassword.getText().toString();
         String  userName=mUserName.getText().toString();
-        Intent avatar=new Intent(this, Avatar.class);
-        startActivity(avatar);
+        //Intent avatar=new Intent(this, Avatar.class);
+       // startActivity(avatar);
         user=new User(fullName,email,userName,passWord,R.drawable.female_2);
 
         if (fullName.isEmpty()){
