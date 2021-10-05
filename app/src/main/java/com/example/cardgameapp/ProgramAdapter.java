@@ -13,17 +13,13 @@ import java.util.ArrayList;
 
 public class ProgramAdapter extends ArrayAdapter<String> {
     Context context;
-    ArrayList<Integer> images;
-    ArrayList<String> usernames;
-    ArrayList<String> scores;
+    ArrayList<ScoreItem> scores;
 
 
-    public ProgramAdapter(@NonNull Context context, ArrayList<String> usernames,ArrayList<String> scores,ArrayList<Integer> images) {
-        super(context, R.layout.single_item,R.id.title,usernames);
+    public ProgramAdapter(@NonNull Context context,ArrayList<ScoreItem> scores,ArrayList<String> UserNames) {
+        super(context, R.layout.single_item,R.id.title, UserNames);
         this.context=context;
-        this.images=images;
-        this.usernames=usernames;
-        this.scores=scores;
+       this.scores =scores;
     }
 
 
@@ -43,9 +39,10 @@ public class ProgramAdapter extends ArrayAdapter<String> {
         {
             holder= (ProgramViewHolder) singleItem.getTag();
         }
-        holder.itemImage.setImageResource(images.get(position));
-        holder.title.setText(usernames.get(position));
-        holder.description.setText(scores.get(position));
+
+        holder.itemImage.setImageResource(scores.get(position).images);
+        holder.title.setText(scores.get(position).usernames);
+        holder.description.setText(scores.get(position).scores);
         return singleItem;
     }
 }
