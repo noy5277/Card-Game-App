@@ -1,5 +1,6 @@
 package com.example.cardgameapp;
 
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -29,5 +30,10 @@ public class MainGame extends AppCompatActivity {
     public void OpenCategory() {
         Intent intent = new Intent(this, Category.class);
         startActivity(intent);
+    }
+
+    public void OpenScoreActivity(View view) {
+        Intent scores=new Intent(this,Score.class);
+        startActivity(scores);
     }
 }

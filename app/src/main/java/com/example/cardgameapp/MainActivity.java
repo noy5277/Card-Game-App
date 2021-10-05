@@ -15,6 +15,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.cardgameapp.Database.DaoFirebaseImpl;
+import com.example.cardgameapp.Database.IDao;
 import com.example.cardgameapp.userLogIn.RegistrUserActivity;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -28,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private static final int SIGN_IN_FROM_END = 2;
     private Intent signInUp;
     private Intent Settings;
-
+    private static IDao DB;
     //------------NEW ----------
     private TextView registerBtn;
     private Button signInBtn;
@@ -49,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         signInBtn = (Button) findViewById(R.id.loginB);
         signInBtn.setOnClickListener(this);
         mAuth = FirebaseAuth.getInstance();
+        DB= DaoFirebaseImpl.getInstance();
     }
 
 
@@ -82,18 +85,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             editTextEmail.requestFocus();
             return;
         }
-        mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()){
+
+        mAuth.signInWithEmailAndPassword(email,password)
+                .addOnCompleteListener(task ->{
+                if (task.isSuccessful())
+                {
                     startActivity(new Intent(MainActivity.this,MainGame.class));
                 }
-                else{
+                else {
                     Toast.makeText(MainActivity.this,"Faild to login",Toast.LENGTH_LONG).show();
                 }
-            }
-        });
+                });
     }
+
+
 
 
 

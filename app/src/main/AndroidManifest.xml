@@ -13,6 +13,12 @@
             android:name=".gamesCategorys.DifferentGame"
             android:exported="true" />
         <activity
+            android:name=".Avatar"
+            android:exported="true" />
+        <activity
+            android:name=".Score"
+            android:exported="true" />
+        <activity
             android:name=".gamesCategorys.WhatInThePicture"
             android:exported="true" />
         <activity
