@@ -3,6 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/HitFinalProject/Card-Game-App/app/src/main/res/layout/activity_category.xml" value="0.33" />
+        <entry key="..\:/HitFinalProject/Card-Game-App/app/src/main/res/layout/activity_main.xml" value="0.23697916666666666" />
+        <entry key="..\:/HitFinalProject/Card-Game-App/app/src/main/res/layout/activity_main_game.xml" value="0.17572463768115942" />
+        <entry key="..\:/HitFinalProject/Card-Game-App/app/src/main/res/layout/activity_registr_user.xml" value="0.23697916666666666" />
+        <entry key="..\:/HitFinalProject/Card-Game-App/app/src/main/res/layout/activity_similarity.xml" value="0.23697916666666666" />
+        <entry key="..\:/HitFinalProject/Card-Game-App/app/src/main/res/layout/activity_what_in_the_picture.xml" value="0.33" />
         <entry key="..\:/Users/noyz/AndroidStudioProjects/CardGameApp/app/src/main/res/drawable-anydpi/ic_return.xml" value="0.2846153846153846" />
         <entry key="..\:/Users/noyz/AndroidStudioProjects/CardGameApp/app/src/main/res/drawable/edit_text_backgroud.xml" value="0.2846153846153846" />
         <entry key="..\:/Users/noyz/AndroidStudioProjects/CardGameApp/app/src/main/res/drawable/empty_tall_divider.xml" value="0.2964102564102564" />
