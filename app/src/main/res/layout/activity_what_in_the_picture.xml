@@ -32,51 +32,54 @@
                     android:layout_height="29dp"
 
                     android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
                     android:layout_alignParentBottom="true"
-                    android:layout_marginStart="7dp"
-                    android:layout_marginBottom="6dp"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
                     android:layout_weight="1"
                     app:srcCompat="@drawable/back_btn" />
 
                 <LinearLayout
-                    android:layout_width="138dp"
+                    android:layout_width="85dp"
                     android:layout_height="match_parent"
-                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentStart="true"
                     android:layout_alignParentBottom="true"
-                    android:layout_marginStart="66dp"
-                    android:layout_marginEnd="150dp"
-                    android:layout_marginBottom="1dp"
-                    android:layout_toEndOf="@+id/WITPbackBtn"
-                    android:layout_weight="2"
-                    android:background="@drawable/pink_rect_normal"
-                    android:gravity="center"
-                    android:orientation="horizontal">
+                    android:layout_marginStart="62dp"
+                    android:layout_marginBottom="0dp"
+                    android:orientation="horizontal"
+                    android:id="@+id/hartsNum"
+
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/hartImage"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/hart" />
 
                     <TextView
-                        android:id="@+id/levelname"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Level"
-                        android:textSize="20dp" />
-
-                    <TextView
-                        android:id="@+id/WITPlevel"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
+                        android:id="@+id/WIThartCount"
+                        android:layout_width="30dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
                         android:gravity="center"
                         android:text="0"
-                        android:textSize="20dp"
-                        android:textStyle="bold"
-                        android:typeface="serif" />
+
+                        android:textColor="@color/white"
+                        android:textSize="20dp" />
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="94dp"
-                    android:layout_height="45dp"
+                    android:id="@+id/coinLay"
+                    android:layout_width="96dp"
+                    android:layout_height="match_parent"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentBottom="true"
+                    android:layout_marginStart="30dp"
                     android:layout_marginLeft="6dp"
                     android:layout_marginEnd="3dp"
                     android:layout_marginBottom="0dp"
@@ -91,9 +94,9 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:text="0"
+                        android:textColor="@color/white"
                         android:textSize="20dp"
                         android:textStyle="bold"
-                        android:textColor="@color/white"
                         android:typeface="serif" />
 
                     <ImageView
@@ -124,11 +127,49 @@
         <!--android:fontFamily="@font/mymainfont"-->
         <!--android:layout_height="wrap_content" />-->
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="125dp"
+                android:layout_height="51dp"
+
+                android:background="@drawable/pink_rect_normal"
+                android:foregroundGravity="center"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/levelname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Level"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:id="@+id/WITPlevel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:gravity="center"
+                    android:text="0"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:typeface="serif" />
+
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
     </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="380dp"
+            android:layout_height="338dp"
             android:layout_gravity="center"
             android:layout_weight="4"
             android:gravity="center"
