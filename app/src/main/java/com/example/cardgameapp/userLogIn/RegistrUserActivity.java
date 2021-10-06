@@ -30,6 +30,7 @@ public class RegistrUserActivity extends AppCompatActivity implements View.OnCli
     FirebaseAuth fAuth;
     private User user;
     private static IDao DB;
+    public static final String INPUT_AVATAR="Avatar.INPUT_AVATAR";
 
 
     @Override
@@ -45,6 +46,7 @@ public class RegistrUserActivity extends AppCompatActivity implements View.OnCli
         mRegister.setOnClickListener(this);
         fAuth = FirebaseAuth.getInstance();
         DB= DaoFirebaseImpl.getInstance();
+
     }
 
     @Override
@@ -62,9 +64,9 @@ public class RegistrUserActivity extends AppCompatActivity implements View.OnCli
         String  fullName = mFullName.getText().toString();
         String  passWord = mPassword.getText().toString();
         String  userName=mUserName.getText().toString();
-        //Intent avatar=new Intent(this, Avatar.class);
-       // startActivity(avatar);
-        user=new User(fullName,email,userName,passWord,R.drawable.female_2);
+        Bundle extras=getIntent().getExtras();
+        Integer avatar=extras.getInt(INPUT_AVATAR);
+        user=new User(fullName,email,userName,passWord,avatar);
 
         if (fullName.isEmpty()){
             mFullName.setError("Full name is requried");

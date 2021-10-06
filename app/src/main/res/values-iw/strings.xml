@@ -16,4 +16,6 @@
     <string name="Different">מה שונה</string>
     <string name="string_login_b_text">התחבר</string>
     <string name="email_address">אימייל</string>
+    <string name="getContinue">המשך</string>
+
 </resources>

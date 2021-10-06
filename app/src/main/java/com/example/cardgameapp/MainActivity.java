@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.registerLayoutBtn:
-                startActivity(new Intent(this, RegistrUserActivity.class));
+                startActivity(new Intent(this, Avatar.class));
                 break;
             case R.id.loginB:
                 UserLogIn();
