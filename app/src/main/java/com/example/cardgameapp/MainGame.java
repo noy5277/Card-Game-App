@@ -18,7 +18,7 @@ public class MainGame extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_game);
 
-        OpenCategoryButton = (Button) findViewById(R.id.startGameBtn);
+        OpenCategoryButton =findViewById(R.id.startGameBtn);
         OpenCategoryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
