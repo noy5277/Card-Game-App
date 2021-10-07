@@ -38,7 +38,7 @@ public class Score extends AppCompatActivity {
         mScoreTable=findViewById(R.id.listView);
         scores = new ArrayList<>();
         UserNames = new ArrayList<>();
-        FirebaseDatabase.getInstance().getReference("Users")
+        FirebaseDatabase.getInstance().getReference("Users").orderByChild("score")
                 .addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

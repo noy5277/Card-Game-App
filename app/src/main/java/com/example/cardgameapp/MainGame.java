@@ -55,6 +55,13 @@ public class MainGame extends AppCompatActivity {
                 Opensettings();
             }
         });
+        scoreBtn = (ImageView) findViewById(R.id.scoreListbtn);
+        scoreBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                OpenScoreActivity();
+            }
+        });
     }
     public void OpenCategory() {
         Intent intent = new Intent(this, Category.class);
@@ -65,7 +72,7 @@ public class MainGame extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void OpenScoreActivity(View view) {
+    public void OpenScoreActivity() {
         Intent scores=new Intent(this,Score.class);
         startActivity(scores);
     }
