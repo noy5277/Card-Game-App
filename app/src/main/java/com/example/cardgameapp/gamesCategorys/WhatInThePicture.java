@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -74,11 +75,13 @@ public class WhatInThePicture extends AppCompatActivity {
         setletters();
         backButton();
         setLevelNumber(gameLevel.getLevel());
+
     }
 
     private void setImage() {
         int imageResource = getResources().getIdentifier(gameLevel.getImage().getName(), "drawable", getPackageName());
         levelImage.setImageResource(imageResource);
+
     }
 
     private void setAnswerletters() {
@@ -97,13 +100,24 @@ public class WhatInThePicture extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     TextView removeLettter = (TextView) answerTextView.get(textView);
-                    removeLettter.setVisibility(View.VISIBLE);
-                    textView.setText("");
-                    answerTextView.replace(textView,null);
-                    lastIndex--;
-                    inputWord.substring(0, inputWord.length() - 1);
-                }
+                    if (removeLettter != null){
+                        removeLettter.setVisibility(View.VISIBLE);
+                        textView.setText("");
+                        answerTextView.replace(textView, null);
+                        lastIndex--;
 
+
+                        if (!gameLevel.getImage().getAnswer().equals(inputWord) && gameLevel.getImage().getAnswer().length() == inputWord.length()) {
+
+                            for (Map.Entry<TextView, TextView> entryWrong : answerTextView.entrySet()) {
+                                TextView key = entryWrong.getKey();
+                                key.setTextColor(Color.BLACK);
+
+                            }
+                        }
+                        inputWord=inputWord.substring(0, inputWord.length() - 1);
+                }
+                }
             });
             answerLettersLayout.addView(to_add);
             answerTextView.put(textView,null);
@@ -152,10 +166,19 @@ public class WhatInThePicture extends AppCompatActivity {
                                 lastIndex++;
 
                                 inputWord = inputWord + key.getText();
-                                if (gameLevel.getImage().getAnswer().equals(inputWord) && gameLevel.getImage().getAnswer().length() == inputWord.length()) {
-                                    cleanLevel();
-                                    setGameLevelHendler(gameLevel.getLevel() + 1);
+                                if (gameLevel.getImage().getAnswer().length() == inputWord.length())
+                                {
+                                    if (gameLevel.getImage().getAnswer().equals(inputWord) ) {
+                                        cleanLevel();
+                                        setGameLevelHendler(gameLevel.getLevel() + 1);
 
+                                    }else{
+                                        for (Map.Entry<TextView, TextView> entryWrong : answerTextView.entrySet()) {
+                                            TextView key2 = entryWrong.getKey();
+                                            key2.setTextColor(Color.RED);
+
+                                        }
+                                    }
                                 }
                                 break;
 
@@ -173,7 +196,7 @@ public class WhatInThePicture extends AppCompatActivity {
     }
 
     private void setLevelNumber(int level){
-        //gameLevel.gameLevelText(String.valueOf(level));
+        gameLevelText.setText(String.valueOf(level));
     }
     private void backButton(){
         backBtn.setOnClickListener(new View.OnClickListener() {
