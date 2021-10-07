@@ -13,6 +13,9 @@
             android:name=".Avatar"
             android:exported="true" />
         <activity
+            android:name=".Win"
+            android:exported="true" />
+        <activity
             android:name=".Score"
             android:exported="true" />
         <activity

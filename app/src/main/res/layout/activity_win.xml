@@ -7,8 +7,24 @@
     android:background="@color/green_light_transparent"
     tools:context=".Win">
 
+    <TextView
+        android:id="@+id/exitLevelBtn"
+        android:layout_width="126dp"
+        android:layout_height="60dp"
+        android:background="@drawable/wheel_red_button"
+        android:fontFamily="@font/concert_one"
+        android:gravity="center"
+        android:text="Quit"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.195"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.777" />
+
     <ImageView
-        android:id="@+id/imageView9"
+        android:id="@+id/WINfceLogo"
         android:layout_width="145dp"
         android:layout_height="149dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -16,36 +32,61 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.168"
-        app:srcCompat="@drawable/game_happy_avatar" />
+        android:background="@drawable/game_happy_avatar" />
 
     <ImageView
-        android:id="@+id/imageView7"
-        android:layout_width="299dp"
-        android:layout_height="145dp"
+        android:id="@+id/WinLoseLogo"
+        android:layout_width="334dp"
+        android:layout_height="123dp"
+        android:background="@drawable/game_you_won"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.437"
-        app:srcCompat="@drawable/game_you_won" />
+        app:layout_constraintVertical_bias="0.437" />
 
     <ImageView
         android:id="@+id/imageView10"
-        android:layout_width="117dp"
-        android:layout_height="81dp"
+        android:layout_width="78dp"
+        android:layout_height="76dp"
+        android:background="@drawable/coin"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.155"
+        app:layout_constraintHorizontal_bias="0.28"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.627"
-        app:srcCompat="@drawable/coin" />
+        app:layout_constraintVertical_bias="0.638" />
 
     <TextView
-        android:id="@+id/textView4"
-        android:layout_width="73dp"
-        android:layout_height="73dp"
+        android:id="@+id/WINcoinsAdd"
+        android:layout_width="71dp"
+        android:layout_height="83dp"
+        android:fontFamily="@font/concert_one"
+        android:gravity="center|center_vertical"
         android:text="0"
-        tools:layout_editor_absoluteX="188dp"
-        tools:layout_editor_absoluteY="449dp" />
+        android:textColor="@color/black"
+        android:textSize="48sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.614"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.644" />
+
+    <TextView
+        android:id="@+id/nextLevelBtn"
+        android:layout_width="120dp"
+        android:layout_height="56dp"
+        android:background="@drawable/button_green"
+        android:fontFamily="@font/concert_one"
+        android:gravity="center"
+        android:text="Next"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.785"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.774" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
