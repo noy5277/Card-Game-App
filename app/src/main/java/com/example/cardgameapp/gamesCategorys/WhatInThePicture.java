@@ -6,9 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -17,7 +15,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.cardgameapp.Category;
 import com.example.cardgameapp.R;
@@ -28,7 +25,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -72,7 +68,7 @@ public class WhatInThePicture extends AppCompatActivity {
         backBtn =  (ImageView) findViewById(R.id.WITPbackBtn);
         answerLettersLayout = (LinearLayout) findViewById(R.id.WITPanswerLetters);
         lettersLayoutl = (LinearLayout) findViewById(R.id.WITPletters);
-        gameLevelText = (TextView) findViewById(R.id.WITPlevel);
+        gameLevelText = (TextView) findViewById(R.id.level_txt);
         displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         getLeves();

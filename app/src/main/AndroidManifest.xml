@@ -14,6 +14,10 @@
             android:exported="true" />
         <activity
             android:name=".gamesCategorys.Similarity"
+            android:name=".SameGame"
+            android:exported="true" />
+        <activity
+            android:name=".gamesCategorys.DifferentGame"
             android:exported="true" />
         <activity
             android:name=".Avatar"
