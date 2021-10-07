@@ -10,10 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CardGameApp">
         <activity
-            android:name=".SameGame"
+            android:name=".Win"
             android:exported="true" />
         <activity
-            android:name=".gamesCategorys.DifferentGame"
+            android:name=".gamesCategorys.Similarity"
             android:exported="true" />
         <activity
             android:name=".Avatar"
@@ -48,6 +48,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>
