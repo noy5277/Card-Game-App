@@ -10,12 +10,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CardGameApp">
         <activity
-            android:name=".SameGame"
-            android:exported="true" />
-        <activity
-            android:name=".gamesCategorys.DifferentGame"
-            android:exported="true" />
-        <activity
             android:name=".Avatar"
             android:exported="true" />
         <activity

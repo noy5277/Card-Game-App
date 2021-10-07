@@ -26,6 +26,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -44,9 +45,12 @@ public class WhatInThePicture extends AppCompatActivity {
     private LinearLayout lettersLayoutl;
     private DisplayMetrics displayMetrics;
     private Button hintBtn;
-    private TextView gameLevelText;
+    private TextView gameLevelText,gameCoinsText,hartCountText;
     public HashMap<TextView, TextView> answerTextView = new HashMap<TextView, TextView>();// Move up
-    private String inputWord="";
+    private String inputWord2="";
+    private String[] inputWord;
+    private int score;
+    private int hartCount;
     FirebaseDatabase fAuth;
 
 
@@ -57,15 +61,22 @@ public class WhatInThePicture extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_what_in_the_picture);
 
+        gameCoinsText =(TextView) findViewById(R.id.WITPcoins);
+        hartCountText =(TextView) findViewById(R.id.WIThartCount);
+
         levelImage = (ImageView) findViewById(R.id.WITPlevelImage);
         backBtn =  (ImageView) findViewById(R.id.WITPbackBtn);
         answerLettersLayout = (LinearLayout) findViewById(R.id.WITPanswerLetters);
         lettersLayoutl = (LinearLayout) findViewById(R.id.WITPletters);
         gameLevelText = (TextView) findViewById(R.id.level_txt);
         displayMetrics = new DisplayMetrics();
-        hintBtn = (Button) findViewById(R.id.WITPhint);
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         getLeves();
+        score = 0;
+        hartCount = 3;
+        hartCountText.setText(String.valueOf(hartCount));
+
+
     }
 
 
@@ -73,7 +84,6 @@ public class WhatInThePicture extends AppCompatActivity {
         setImage();
         setAnswerletters();
         setletters();
-        backButton();
         setLevelNumber(gameLevel.getLevel());
 
     }
@@ -86,7 +96,8 @@ public class WhatInThePicture extends AppCompatActivity {
 
     private void setAnswerletters() {
         LayoutInflater inflater = getLayoutInflater();
-        int answerSize = gameLevel.getImage().getAnswer().length(); //optionjs
+        int answerSize = gameLevel.getImage().getAnswer().length();
+        inputWord = new String[answerSize];
 
         for (int i = 0; i < answerSize; i++) {
             View to_add = inflater.inflate(R.layout.text_answer_layout,
@@ -104,10 +115,13 @@ public class WhatInThePicture extends AppCompatActivity {
                         removeLettter.setVisibility(View.VISIBLE);
                         textView.setText("");
                         answerTextView.replace(textView, null);
-                        lastIndex--;
-
-
-                        if (!gameLevel.getImage().getAnswer().equals(inputWord) && gameLevel.getImage().getAnswer().length() == inputWord.length()) {
+                        int id =textView.getId();
+                        if (lastIndex>id){
+                            lastIndex =textView.getId();
+                        }
+                        inputWord[id]="";
+                        inputWord2 = Arrays.toString(inputWord);
+                        if (gameLevel.getImage().getAnswer().length() != inputWord2.length()) {
 
                             for (Map.Entry<TextView, TextView> entryWrong : answerTextView.entrySet()) {
                                 TextView key = entryWrong.getKey();
@@ -115,7 +129,7 @@ public class WhatInThePicture extends AppCompatActivity {
 
                             }
                         }
-                        inputWord=inputWord.substring(0, inputWord.length() - 1);
+
                 }
                 }
             });
@@ -156,31 +170,39 @@ public class WhatInThePicture extends AppCompatActivity {
 
                     @Override
                     public void onClick(View v) {
+                        TextView answerText =null ;
+                        int  index = answerTextView.size();
                         for (Map.Entry<TextView, TextView> entry : answerTextView.entrySet()) {
                             TextView key = entry.getKey();
                             TextView value = entry.getValue();
-                            if (value==null && key.getId() == lastIndex) {
-                                answerTextView.replace(key, textView);
-                                key.setText(textView.getText());
-                                textView.setVisibility(View.INVISIBLE);
-                                lastIndex++;
-
-                                inputWord = inputWord + key.getText();
-                                if (gameLevel.getImage().getAnswer().length() == inputWord.length())
-                                {
-                                    if (gameLevel.getImage().getAnswer().equals(inputWord) ) {
-                                        cleanLevel();
-                                        setGameLevelHendler(gameLevel.getLevel() + 1);
-
-                                    }else{
-                                        for (Map.Entry<TextView, TextView> entryWrong : answerTextView.entrySet()) {
-                                            TextView key2 = entryWrong.getKey();
-                                            key2.setTextColor(Color.RED);
-
-                                        }
-                                    }
+                            if ((value == null)) {
+                                if (index > (int) key.getId()) {
+                                    answerText = key;
+                                    index = (int) key.getId();
                                 }
-                                break;
+                            }
+                        }
+                        if (answerText!=null) {
+                            answerTextView.replace(answerText, textView);
+                            answerText.setText(textView.getText());
+                            textView.setVisibility(View.INVISIBLE);
+                            inputWord[(int)answerText.getId()] = answerText.getText().toString();
+
+                        }
+                        inputWord2 = String.join("",inputWord);
+
+                        if (gameLevel.getImage().getAnswer().length() == inputWord2.length())
+                        {
+                            if (gameLevel.getImage().getAnswer().equals(inputWord2.toString()) ) {
+                                levelHandler("win");
+                            }
+                            else {
+                                for (Map.Entry<TextView, TextView> entryWrong : answerTextView.entrySet()) {
+                                    TextView key2 = entryWrong.getKey();
+                                    key2.setTextColor(Color.RED);
+
+                                }
+                                levelHandler("loseLifes");
 
                             }
                         }
@@ -188,10 +210,8 @@ public class WhatInThePicture extends AppCompatActivity {
                 });
                 newRow.addView(to_add);
                 lettersList.remove(lettersList.size() - 1);
-
             }
             lettersLayoutl.addView(newRow);
-
         }
     }
 
@@ -260,6 +280,35 @@ public class WhatInThePicture extends AppCompatActivity {
         lettersLayoutl.removeAllViews();
         answerTextView.clear();
         lastIndex = 0;
-        inputWord = "";
+    }
+    private void levelHandler(String action){
+        switch (action){
+            case "win":
+                cleanLevel();
+                score = score+ 10;
+                gameCoinsText.setText(String.valueOf(score));
+                setGameLevelHendler(gameLevel.getLevel() + 1);
+                break;
+            case "lose":
+                break;
+            case "endGame":
+                break;
+            case "addPoints":
+                score = score+ 10;
+                gameCoinsText.setText(String.valueOf(score));
+                break;
+            case "loseLifes":
+                hartCount --;
+                if (hartCount == 0 ){
+                    levelHandler("endGame");
+                }
+                else{
+                    hartCountText.setText(String.valueOf(hartCount));
+                }
+                break;
+
+
+        }
+
     }
 }
