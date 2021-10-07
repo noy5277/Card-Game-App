@@ -74,7 +74,6 @@ public class WhatInThePicture extends AppCompatActivity {
         lettersLayoutl = (LinearLayout) findViewById(R.id.WITPletters);
         gameLevelText = (TextView) findViewById(R.id.WITPlevel);
         displayMetrics = new DisplayMetrics();
-        hintBtn = (Button) findViewById(R.id.WITPhint);
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         getLeves();
         score = 0;
@@ -89,7 +88,6 @@ public class WhatInThePicture extends AppCompatActivity {
         setImage();
         setAnswerletters();
         setletters();
-        backButton();
         setLevelNumber(gameLevel.getLevel());
 
     }

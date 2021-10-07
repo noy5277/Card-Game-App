@@ -8,6 +8,7 @@ import com.google.firebase.database.Query;
 import java.util.ArrayList;
 
 public interface IDao {
+    public  User user = null;
 
     void writeNewUser(User user);
 

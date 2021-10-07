@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView registerBtn;
     private Button signInBtn;
     private EditText editTextEmail ,editTextPassWord;
-    private FirebaseAuth mAuth;
+        private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
