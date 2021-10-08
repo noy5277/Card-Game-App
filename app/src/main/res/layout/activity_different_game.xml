@@ -172,7 +172,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/WITPanswerLetters"
+            android:id="@+id/answerLayout"
             android:layout_width="401dp"
             android:layout_height="225dp"
             android:layout_gravity="center"

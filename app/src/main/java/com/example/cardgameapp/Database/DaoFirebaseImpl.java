@@ -45,7 +45,7 @@ public class DaoFirebaseImpl implements IDao {
 
     @Override
     public void writeNewSameGame(SameGameObj game) {
-        mSameGameTable.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(game);
+        mSameGameTable.child(game.getAnswer()).setValue(game);
     }
 
 

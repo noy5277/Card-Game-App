@@ -56,4 +56,8 @@ public class Category extends AppCompatActivity {
     }
 
 
+
+    public void FindSimilarity(View view) {
+        startActivity(new Intent(Category.this, SimilarityGame.class));
+    }
 }

@@ -2,44 +2,58 @@ package com.example.cardgameapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.GridLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.cardgameapp.gamesCategorys.Games;
 import com.example.cardgameapp.gamesCategorys.SameGameObj;
 
 import java.util.HashMap;
 
-public class SameGame extends AppCompatActivity {
+public class SimilarityGame extends AppCompatActivity {
 
     private Games games;
     private static int level=0;
-    private HashMap<Integer,TextView> letters;
+    private HashMap<Integer, TextView> letters;
     private StringBuilder answer;
-    private GridLayout gridAnswer;
-    private HashMap<Integer,SameGameObj>  sameGames;
+    private LinearLayout layoutAnswer;
+    private HashMap<Integer, SameGameObj>  sameGames;
     private ImageView imageView1,imageView2,imageView3,imageView4;
-
+    private static int indexAnswer;
+    private static int countAnswer;
+    private SameGameObj game;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_same_game);
-        //games= Games.getInstance();
+        setContentView(R.layout.activity_similarity_game);
+        games= Games.getInstance();
         letters=new HashMap<Integer, TextView>();
         answer=new StringBuilder();
+        progressBar=findViewById(R.id.progressBar);
+        indexAnswer=0;
+        countAnswer=0;
         imageView1=findViewById(R.id.imageView1);
         imageView2=findViewById(R.id.imageView2);
         imageView3=findViewById(R.id.imageView3);
         imageView4=findViewById(R.id.imageView4);
-        gridAnswer=findViewById(R.id.gridAnswer);
-        //games.GetSameGameFromDb();
-        //CreateGames();
-        //TaggingLetters();
-        //Init();
+        layoutAnswer=findViewById(R.id.answerLayout);
+        games.GetSameGameFromDb();
+        game=games.GetSameGames().get(level);
+        TaggingLetters();
+        Init();
+        StartGame();
     }
 
     public void CreateGames()
@@ -52,7 +66,7 @@ public class SameGame extends AppCompatActivity {
         games.CreateSameGame(new SameGameObj(R.drawable.bigben,R.drawable.egypt,R.drawable.eiffel,R.drawable.liberty,"Tourism",5));
         games.WriteSameGames();
     }
-/*
+
     public void TaggingLetters()
     {
         letters.put(11,findViewById(R.id.letter11));
@@ -70,38 +84,76 @@ public class SameGame extends AppCompatActivity {
     }
 
 
+    public void ChooseLevel(int level)
+    {
+        LayoutInflater inflater =(LayoutInflater) this.getSystemService(this.LAYOUT_INFLATER_SERVICE);
+        imageView1.setImageResource(game.getPiq1());
+        imageView2.setImageResource(game.getPiq2());
+        imageView3.setImageResource(game.getPiq3());
+        imageView4.setImageResource(game.getPiq4());
+        int answerSize=game.getAnswer().length();
+        for(int i = 0; i < answerSize; i++)
+        {
+            View to_add = inflater.inflate(R.layout.text_answer_layout,layoutAnswer,false);
+            TextView textView = (TextView) to_add.findViewById(R.id.answerLetter);
+            textView.setTypeface(textView.getTypeface(), Typeface.BOLD);
+            textView.setId(i);
+            textView.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View view) {
+                    if(textView.getText()!=null)
+                    {
+                        textView.setText(null);
+                        countAnswer--;
+                        for(int i=0 ; i<answerSize;i++)
+                        {
+                            if(textView.findViewById(i)==null)
+                            {
+                                indexAnswer=textView.getId();
+                            }
+                        }
+                    }
+                }
+            });
+            layoutAnswer.addView(to_add);
+        }
+    }
+
+
     public void Init()
     {
         switch (level)
         {
             case 0:
-                SameGameObj game=games.GetSameGames().get(0);
-                imageView1.setImageResource(game.getPiq1());
-                imageView2.setImageResource(game.getPiq2());
-                imageView3.setImageResource(game.getPiq3());
-                imageView4.setImageResource(game.getPiq4());
-                for(int i=0;i<game.getAnswer().length();i++)
-                {
-                    EditText editText=new EditText(this);
-                    gridAnswer.addView(editText);
-                }
+                ChooseLevel(0);
                 break;
             case 1:
+                ChooseLevel(1);
                 break;
             case 2:
+                ChooseLevel(2);
                 break;
             case 3:
+                ChooseLevel(3);
                 break;
             case 4:
+                ChooseLevel(4);
                 break;
             case 5:
+                ChooseLevel(5);
                 break;
             case 6:
+                ChooseLevel(6);
                 break;
         }
     }
 
-*/
+    public void StartGame()
+    {
+        ProgressBarThread thread=new ProgressBarThread(progressBar,60);
+        thread.start();
 
+    }
 
 }
