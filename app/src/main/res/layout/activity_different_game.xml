@@ -139,7 +139,6 @@
                 android:layout_width="200dp"
                 android:layout_height="200dp"
                 android:padding="2dp"
-                app:srcCompat="@drawable/motorcycle"
                 tools:scaleType="fitXY" />
 
             <LinearLayout
@@ -167,7 +166,7 @@
                 android:layout_height="200dp"
                 android:padding="2dp"
                 android:scaleType="fitXY"
-                app:srcCompat="@drawable/hoverboard" />
+                 />
 
         </LinearLayout>
 
@@ -186,7 +185,6 @@
                 android:layout_width="200dp"
                 android:layout_height="200dp"
                 android:padding="2dp"
-                app:srcCompat="@drawable/scooter"
                 tools:scaleType="fitXY" />
 
             <LinearLayout
@@ -202,8 +200,7 @@
                 android:layout_width="200dp"
                 android:layout_height="200dp"
                 android:padding="2dp"
-                android:scaleType="fitXY"
-                app:srcCompat="@drawable/tricycle" />
+                android:scaleType="fitXY" />
         </LinearLayout>
 
         <LinearLayout
