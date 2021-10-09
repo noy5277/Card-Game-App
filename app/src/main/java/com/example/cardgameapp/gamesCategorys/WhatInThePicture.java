@@ -87,9 +87,9 @@ public class WhatInThePicture extends AppCompatActivity {
         animShake = AnimationUtils.loadAnimation(this, R.anim.shake);
         levelImage = (ImageView) findViewById(R.id.WITPlevelImage);
         backBtn =  (ImageView) findViewById(R.id.WITPbackBtn);
-        answerLettersLayout = (LinearLayout) findViewById(R.id.WITPanswerLetters);
+        answerLettersLayout = (LinearLayout) findViewById(R.id.answerLayout);
         lettersLayoutl = (LinearLayout) findViewById(R.id.WITPletters);
-        gameLevelText = (TextView) findViewById(R.id.level_txt);
+        gameLevelText = (TextView) findViewById(R.id.WITPlevel);
         displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
 

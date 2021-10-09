@@ -206,7 +206,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/WITPanswerLetters"
+            android:id="@+id/answerLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

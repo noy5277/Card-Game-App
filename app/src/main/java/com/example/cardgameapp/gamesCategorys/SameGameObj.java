@@ -15,6 +15,11 @@ public class SameGameObj {
         this.level=level;
     }
 
+    public SameGameObj()
+    {
+
+    }
+
 
     public void setPiq1(int piq1) {
         this.piq1 = piq1;

@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.cardgameapp.Database.DaoFirebaseImpl;
 import com.example.cardgameapp.Database.IDao;
@@ -74,8 +75,10 @@ public class MainGame extends AppCompatActivity {
     }
     private void buildGame(){
         if (!user.getUserName().isEmpty())
+        {
             userName.setText(user.getUserName());
-        playerScore.setText(String.valueOf(user.getScore()));
+            playerScore.setText(String.valueOf(user.getScore()));
+        }
     }
     private void getUserInfo(){
         String uid = "";
