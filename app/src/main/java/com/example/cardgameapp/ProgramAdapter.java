@@ -42,7 +42,7 @@ public class ProgramAdapter extends ArrayAdapter<String> {
 
         holder.itemImage.setImageResource(scores.get(position).images);
         holder.title.setText(scores.get(position).usernames);
-        holder.description.setText(scores.get(position).scores);
+        holder.description.setText("Score: "+scores.get(position).scores);
         return singleItem;
     }
 }

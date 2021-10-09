@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.cardgameapp.Database.IDao;
 import com.google.android.gms.tasks.Task;
@@ -78,8 +79,10 @@ public class MainGame extends AppCompatActivity {
     }
     private void buildGame(){
         if (!user.getUserName().isEmpty())
+        {
             userName.setText(user.getUserName());
-        playerScore.setText(String.valueOf(user.getScore()));
+            playerScore.setText(String.valueOf(user.getScore()));
+        }
     }
     private void getUserInfo(){
         String uid = FBuser.getUid();
@@ -90,7 +93,6 @@ public class MainGame extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) { //something changed!
                     user = dataSnapshot.getValue(User.class);
                     buildGame();
-
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
