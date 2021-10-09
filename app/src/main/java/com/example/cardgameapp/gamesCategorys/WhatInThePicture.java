@@ -2,7 +2,9 @@ package com.example.cardgameapp.gamesCategorys;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -11,14 +13,23 @@ import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+
 import android.widget.TextView;
+import android.view.ViewGroup.LayoutParams;
 
 import com.example.cardgameapp.Category;
+import com.example.cardgameapp.Database.DaoFirebaseImpl;
+import com.example.cardgameapp.MainActivity;
+import com.example.cardgameapp.MainGame;
 import com.example.cardgameapp.R;
 import com.example.cardgameapp.Image;
+import com.example.cardgameapp.User;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -32,6 +43,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class WhatInThePicture extends AppCompatActivity {
 
@@ -45,13 +58,20 @@ public class WhatInThePicture extends AppCompatActivity {
     private LinearLayout lettersLayoutl;
     private DisplayMetrics displayMetrics;
     private Button hintBtn;
-    private TextView gameLevelText,gameCoinsText,hartCountText;
+    private TextView gameLevelText,gameCoinsText,hartCountText,exitLevelBtn;
+    public TextView closeButton,nextLevelButton,winCoinPoints,LoseCoinPoints;
     public HashMap<TextView, TextView> answerTextView = new HashMap<TextView, TextView>();// Move up
     private String inputWord2="";
     private String[] inputWord;
     private int score;
     private int hartCount;
+    private DaoFirebaseImpl daoFirebaseImpl;
     FirebaseDatabase fAuth;
+    private User user =null;
+    private Animation animShake;
+
+    private PopupWindow mPopupWindow;
+    private LinearLayout  mRelativeLayout;
 
 
     public int lastIndex = 0;
@@ -60,10 +80,11 @@ public class WhatInThePicture extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_what_in_the_picture);
+        daoFirebaseImpl = new DaoFirebaseImpl();
 
         gameCoinsText =(TextView) findViewById(R.id.WITPcoins);
         hartCountText =(TextView) findViewById(R.id.WIThartCount);
-
+        animShake = AnimationUtils.loadAnimation(this, R.anim.shake);
         levelImage = (ImageView) findViewById(R.id.WITPlevelImage);
         backBtn =  (ImageView) findViewById(R.id.WITPbackBtn);
         answerLettersLayout = (LinearLayout) findViewById(R.id.WITPanswerLetters);
@@ -71,6 +92,7 @@ public class WhatInThePicture extends AppCompatActivity {
         gameLevelText = (TextView) findViewById(R.id.level_txt);
         displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+
         getLeves();
         score = 0;
         hartCount = 3;
@@ -127,7 +149,9 @@ public class WhatInThePicture extends AppCompatActivity {
                                 TextView key = entryWrong.getKey();
                                 key.setTextColor(Color.BLACK);
 
+
                             }
+                            animShake.cancel();
                         }
 
                 }
@@ -189,17 +213,21 @@ public class WhatInThePicture extends AppCompatActivity {
                             inputWord[(int)answerText.getId()] = answerText.getText().toString();
 
                         }
-                        inputWord2 = String.join("",inputWord);
+                        inputWord2 =
+                                Stream.of(inputWord)
+                                        .filter(s -> s != null && !s.isEmpty())
+                                        .collect(Collectors.joining(""));
 
                         if (gameLevel.getImage().getAnswer().length() == inputWord2.length())
                         {
                             if (gameLevel.getImage().getAnswer().equals(inputWord2.toString()) ) {
-                                levelHandler("win");
+                                popUpHendlerWin();
                             }
                             else {
                                 for (Map.Entry<TextView, TextView> entryWrong : answerTextView.entrySet()) {
                                     TextView key2 = entryWrong.getKey();
                                     key2.setTextColor(Color.RED);
+                                    key2.startAnimation(animShake);
 
                                 }
                                 levelHandler("loseLifes");
@@ -216,7 +244,7 @@ public class WhatInThePicture extends AppCompatActivity {
     }
 
     private void setLevelNumber(int level){
-        gameLevelText.setText(String.valueOf(level));
+        //gameLevelText.setText(String.valueOf(level));
     }
     private void backButton(){
         backBtn.setOnClickListener(new View.OnClickListener() {
@@ -227,10 +255,87 @@ public class WhatInThePicture extends AppCompatActivity {
             }
         });
     }
-    private void hintBtn(View  v){
+    private void popUpHendlerWin(){
+
+        mRelativeLayout = (LinearLayout ) findViewById(R.id.WITPMain);
+        Context mContext = getApplicationContext();
+        LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
+        View customView = inflater.inflate(R.layout.activity_win,null,false);
+        mPopupWindow = new PopupWindow(
+                customView,
+                LayoutParams.MATCH_PARENT,
+                LayoutParams.MATCH_PARENT
+        );
+        closeButton = (TextView) customView.findViewById(R.id.exitLevelBtn);
+            closeButton.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    levelHandler("endGame");
+                }
+            });
+        nextLevelButton = (TextView) customView.findViewById(R.id.nextLevelBtn);
+        nextLevelButton.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                levelHandler("win");
+                mPopupWindow.dismiss();
+            }
+        });
+        winCoinPoints = (TextView) customView.findViewById(R.id.WINcoinsAdd);
+        winCoinPoints.setText("+10");
+
+        exitLevelBtn =  (TextView) customView.findViewById(R.id.exitLevelBtn);
+        exitLevelBtn.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(WhatInThePicture.this, MainGame.class));
+            }
+        });
+
+        mPopupWindow.showAtLocation(mRelativeLayout, Gravity.CENTER,0,0);
+
 
     }
-    private void getLeves(){
+    private void popUpHendlerlose() {
+        mRelativeLayout = (LinearLayout ) findViewById(R.id.WITPMain);
+        Context mContext = getApplicationContext();
+        LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
+        View customView = inflater.inflate(R.layout.activity_lose,null,false);
+        mPopupWindow = new PopupWindow(
+                customView,
+                LayoutParams.MATCH_PARENT,
+                LayoutParams.MATCH_PARENT
+        );
+        closeButton = (TextView) customView.findViewById(R.id.LOSEcoinsAdd);
+        closeButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                levelHandler("endGame");
+            }
+        });
+
+        LoseCoinPoints = (TextView) customView.findViewById(R.id.LOSEcoinsAdd);
+        LoseCoinPoints.setText(String.valueOf(score));
+
+        exitLevelBtn =  (TextView) customView.findViewById(R.id.exitLevelBtn);
+        exitLevelBtn.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(WhatInThePicture.this, MainGame.class));
+            }
+        });
+
+        String uid = ((DaoFirebaseImpl) this.getApplication()).getCurrentUserId();
+        user = ((DaoFirebaseImpl) this.getApplication()).getUser(uid);
+        user.setScore(user.getScore()+score);
+        ((DaoFirebaseImpl) this.getApplication()).UpdateUser(user);
+
+        mPopupWindow.showAtLocation(mRelativeLayout, Gravity.CENTER,0,0);
+    }
+        private void getLeves(){
         fAuth = FirebaseDatabase.getInstance();
         DatabaseReference reference = fAuth.getReference("WhatsInThePicture");
         reference.addValueEventListener(new ValueEventListener(){
@@ -257,6 +362,7 @@ public class WhatInThePicture extends AppCompatActivity {
             gameLevel = gameLevels.get(level-1);
             buildGameLevel();
         }
+
 
     }
     private List randomListOfWords(String WordToinsert, int size) {
@@ -290,8 +396,10 @@ public class WhatInThePicture extends AppCompatActivity {
                 setGameLevelHendler(gameLevel.getLevel() + 1);
                 break;
             case "lose":
+                popUpHendlerlose();
                 break;
             case "endGame":
+
                 break;
             case "addPoints":
                 score = score+ 10;
@@ -300,7 +408,7 @@ public class WhatInThePicture extends AppCompatActivity {
             case "loseLifes":
                 hartCount --;
                 if (hartCount == 0 ){
-                    levelHandler("endGame");
+                    levelHandler("lose");
                 }
                 else{
                     hartCountText.setText(String.valueOf(hartCount));

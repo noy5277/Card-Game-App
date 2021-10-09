@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.cardgameapp.Database.DaoFirebaseImpl;
 import com.example.cardgameapp.Database.IDao;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,20 +27,15 @@ public class MainGame extends AppCompatActivity {
     private Button OpenCategoryButton;
     private ImageView settingsBtn,scoreBtn;
     private TextView userName,playerScore;
-    private FirebaseAuth mAuth;
-    private FirebaseUser FBuser;
     private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_game);
-
         userName = (TextView) findViewById(R.id.userNameText);
         playerScore = (TextView) findViewById(R.id.palyerScoreMain);
 
-        mAuth = FirebaseAuth.getInstance();
-        FBuser = mAuth.getCurrentUser();
         getUserInfo();
         OpenCategoryButton = (Button) findViewById(R.id.startGameBtn);
         OpenCategoryButton.setOnClickListener(new View.OnClickListener() {
@@ -82,19 +78,14 @@ public class MainGame extends AppCompatActivity {
         playerScore.setText(String.valueOf(user.getScore()));
     }
     private void getUserInfo(){
-        String uid = FBuser.getUid();
-        FirebaseDatabase.getInstance().getReference("Users").child(uid)
-                .addValueEventListener(new ValueEventListener() { //attach listener
+        String uid = "";
+        try {
+            uid = ((DaoFirebaseImpl) this.getApplication()).getCurrentUserId();
+            user = ((DaoFirebaseImpl) this.getApplication()).getUser(uid);
+            buildGame();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) { //something changed!
-                    user = dataSnapshot.getValue(User.class);
-                    buildGame();
-
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-            }
-        });
     }
 }

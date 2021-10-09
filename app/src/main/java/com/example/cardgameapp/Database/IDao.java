@@ -17,6 +17,8 @@ public interface IDao {
 
     User getUser(String userId);
 
+    String getCurrentUserId();
+
     void UpdateUser(User user);
 
     Query orderByScore();
