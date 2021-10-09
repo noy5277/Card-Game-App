@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView registerBtn;
     private Button signInBtn;
     private EditText editTextEmail ,editTextPassWord;
-    private FirebaseAuth mAuth;
+        private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.registerLayoutBtn:
-                startActivity(new Intent(this, RegistrUserActivity.class));
+                startActivity(new Intent(this, Avatar.class));
                 break;
             case R.id.loginB:
                 UserLogIn();

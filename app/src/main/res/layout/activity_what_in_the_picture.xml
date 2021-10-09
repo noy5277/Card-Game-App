@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
-    android:background="@drawable/background2"
+    android:background="@color/green_light"
     tools:context=".gamesCategorys.WhatInThePicture">
 
     <LinearLayout
@@ -21,179 +20,180 @@
             android:gravity="center"
             android:orientation="horizontal">
 
-            <RelativeLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="65dp"
                 android:layout_weight="1">
 
                 <ImageView
-                    android:id="@+id/WITPbackBtn"
+                    android:id="@+id/rewardadsrun"
+                    android:layout_width="121dp"
+                    android:layout_height="54dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/top_coins"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.992"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.4" />
+
+                <TextView
+                    android:id="@+id/WITPcoins"
                     android:layout_width="50dp"
-                    android:layout_height="29dp"
-
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginStart="7dp"
-                    android:layout_marginBottom="6dp"
-                    android:layout_weight="1"
-                    app:srcCompat="@drawable/back_btn" />
-
-                <LinearLayout
-                    android:layout_width="138dp"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginStart="66dp"
-                    android:layout_marginEnd="150dp"
-                    android:layout_marginBottom="1dp"
-                    android:layout_toEndOf="@+id/WITPbackBtn"
-                    android:layout_weight="2"
-                    android:background="@drawable/pink_rect_normal"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/levelname"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Level"
-                        android:textSize="20dp" />
-
-                    <TextView
-                        android:id="@+id/WITPlevel"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:gravity="center"
-                        android:text="0"
-                        android:textSize="20dp"
-                        android:textStyle="bold"
-                        android:typeface="serif" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="94dp"
-                    android:layout_height="45dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginLeft="6dp"
-                    android:layout_marginEnd="3dp"
-                    android:layout_marginBottom="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:orientation="horizontal">
+                    android:text="0"
+                    android:textColor="@color/white"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:typeface="serif"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/rewardadsrun"
+                    app:layout_constraintHorizontal_bias="0.112"
+                    app:layout_constraintStart_toStartOf="@+id/rewardadsrun"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-                    <TextView
-                        android:id="@+id/WITPcoins"
-                        android:layout_width="50dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="0"
-                        android:textSize="20dp"
-                        android:textStyle="bold"
-                        android:textColor="@color/white"
-                        android:typeface="serif" />
+                <ImageView
+                    android:id="@+id/hartImage"
+                    android:layout_width="130dp"
+                    android:layout_height="47dp"
+                    android:layout_weight="1"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/top_lives" />
 
-                    <ImageView
-                        android:id="@+id/rewardadsrun"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:layout_marginEnd="15sp"
-                        android:layout_weight="1"
-                        android:src="@drawable/coin" />
+                <TextView
+                    android:id="@+id/WIThartCount"
+                    android:layout_width="54dp"
+                    android:layout_height="47dp"
 
-                </LinearLayout>
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="0"
+                    android:textColor="@color/white"
+                    android:textSize="20dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/hartImage"
+                    app:layout_constraintHorizontal_bias="0.752"
+                    app:layout_constraintStart_toStartOf="@+id/hartImage"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.583" />
 
-            </RelativeLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
         </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_weight="1"
-        android:layout_height="wrap_content">
-
-        <!--<TextView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:id="@+id/txtquet"-->
-        <!--android:gravity="center"-->
-        <!--android:textSize="20sp"-->
-        <!--android:fontFamily="@font/mymainfont"-->
-        <!--android:layout_height="wrap_content" />-->
-
-    </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="380dp"
-            android:layout_gravity="center"
-            android:layout_weight="4"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:padding="3dp">
+            android:layout_height="12dp"
+            android:layout_weight="1">
 
-            <LinearLayout
-                android:id="@+id/containerofmainimage"
-                android:layout_width="wrap_content"
+            <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:id="@+id/txtquet"-->
+            <!--android:gravity="center"-->
+            <!--android:textSize="20sp"-->
+            <!--android:fontFamily="@font/mymainfont"-->
+            <!--android:layout_height="wrap_content" />-->
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/shapenewformain_image"
-                android:orientation="vertical">
-                <ImageView
-                    android:id="@+id/WITPlevelImage"
-                    android:layout_width="280dp"
-                    android:layout_height="240dp"
-                    android:padding="2dp"
-                    android:src="@drawable/bee"
-                    android:scaleType="fitXY" />
+                android:layout_marginTop="5dp">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_width="153dp"
+                    android:layout_height="53dp"
 
-                    <Button
-                        android:id="@+id/WITPhint"
-                        android:layout_width="103dp"
-                        android:layout_height="48dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/pink_rect_normal"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:text="Reveal Letter" />
+                    android:foregroundGravity="center"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.462"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.609">
 
-                    <View
-                        android:layout_width="2dp"
-                        android:layout_height="5dp" />
+                    <TextView
+                        android:id="@+id/levelname"
+                        style="@android:style/Widget.DeviceDefault.Light.TextView"
+                        android:layout_width="112dp"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/concert_one"
+                        android:foregroundGravity="center"
+                        android:gravity="center"
+                        android:text="Level"
+                        android:textSize="30dp"
+                        android:textStyle="bold" />
 
-                    <Button
-                        android:id="@+id/sharebtn"
-                        android:layout_width="93dp"
-                        android:layout_height="50dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/pink_rect_normal"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:text="Share game" />
+                    <TextView
+                        android:id="@+id/WITPlevel"
+                        android:layout_width="41dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/concert_one"
+                        android:foregroundGravity="center"
+                        android:gravity="center"
+                        android:text="0"
+                        android:textSize="25dp"
+                        android:textStyle="bold"
+                        android:typeface="serif" />
 
                 </LinearLayout>
 
-            </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="349dp">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="250dp"
+                android:layout_height="216dp"
+                android:layout_margin="5dp"
+                android:elevation="10dp"
+                app:cardCornerRadius="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+
+                <ImageView
+                    android:id="@+id/WITPlevelImage"
+                    android:layout_width="269dp"
+                    android:layout_height="236dp"
+                    android:layout_marginRight="20dp"
+
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:paddingRight="5dp"
+                    android:scaleType="fitXY"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.495"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.387" />
+            </androidx.cardview.widget.CardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
         <LinearLayout
-            android:id="@+id/WITPanswerLetters"
+            android:id="@+id/answerLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:padding="16dp"
             android:gravity="center"
-            android:orientation="horizontal">
-        </LinearLayout>
+            android:orientation="horizontal"
+            android:padding="16dp"></LinearLayout>
 
 
         <LinearLayout
@@ -210,5 +210,6 @@
         </LinearLayout>
 
     </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,61 +4,91 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/main_game_background"
+    android:background="@color/green_light"
     tools:context=".Category">
 
 
     <Button
         android:id="@+id/different"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
+        android:layout_width="236dp"
+        android:layout_height="90dp"
+        android:fontFamily="sans-serif-medium"
         android:text="@string/Different"
+        android:textColor="@color/white"
+        android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.666"
-        tools:background="#3F51B5" />
+        app:layout_constraintVertical_bias="0.448"
+        android:gravity="center"
+
+        android:background="@drawable/button_green"
+/>
 
     <Button
         android:id="@+id/similar"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
+        android:layout_width="236dp"
+        android:layout_height="90dp"
+        android:fontFamily="sans-serif-medium"
         android:text="@string/Similar"
+        android:onClick="FindSimilarity"
+        android:textColor="@color/white"
+        android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.49"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.768"
-        tools:background="#3F51B5" />
+        app:layout_constraintVertical_bias="0.629"
+        android:gravity="center"
+        android:background="@drawable/button_green"
+        />
 
     <Button
         android:id="@+id/what_is_in_the_picture_btn"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
+        android:layout_width="238dp"
+        android:layout_height="90dp"
+        android:fontFamily="sans-serif-medium"
         android:text="@string/What_is_in_the_picture"
+        android:textColor="@color/white"
+        android:textSize="25sp"
+        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.871"
-        tools:background="#3F51B5" />
+        app:layout_constraintVertical_bias="0.821"
+        android:background="@drawable/button_green"
+        />
 
     <Button
         android:id="@+id/back"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:text="@string/back"
+        android:layout_width="50dp"
+        android:layout_height="48dp"
+        android:gravity="center"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.021"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.973"
-        tools:background="#E91E63" />
+        app:layout_constraintVertical_bias="0.009"
+        android:background="@drawable/back_btn"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="393dp"
+        android:layout_height="268dp"
+        android:layout_marginTop="28dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/categorys_logo" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

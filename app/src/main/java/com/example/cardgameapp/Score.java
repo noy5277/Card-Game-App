@@ -21,10 +21,10 @@ import java.util.ArrayList;
 
 public class Score extends AppCompatActivity {
 
+
     private ListView mScoreTable;
-    private ArrayList<String> usernames;
-    private ArrayList<String> scores;
-    private ArrayList<Integer> images;
+    private ArrayList<ScoreItem> scores;
+    private  ArrayList<String> UserNames;
     private static IDao DB;
     private Query query;
 
@@ -34,25 +34,24 @@ public class Score extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_score);
         DB= DaoFirebaseImpl.getInstance();
-        mScoreTable=findViewById(R.id.listView);
 
-        FirebaseDatabase.getInstance().getReference().child("Users").orderByChild("score")
+        mScoreTable=findViewById(R.id.listView);
+        scores = new ArrayList<>();
+        UserNames = new ArrayList<>();
+        FirebaseDatabase.getInstance().getReference("Users").orderByChild("score")
                 .addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists())
                 {
-                    usernames=new ArrayList<String>();
-                    scores=new ArrayList<String>();
-                    images=new ArrayList<Integer>();
+
                     for(DataSnapshot dss:snapshot.getChildren())
                     {
-                        usernames.add(dss.child("userName").getValue(String.class));
-                        scores.add("Score: "+Integer.toString(dss.child("score").getValue(Integer.class)));
-                        images.add(dss.child("image").getValue(Integer.class));
+                        scores.add(new ScoreItem(dss.child("userName").getValue(String.class),String.valueOf(dss.child("score").getValue(Integer.class)),dss.child("image").getValue(Integer.class)));
+                        UserNames.add(dss.child("userName").getValue(String.class));
                     }
 
-                    ProgramAdapter programAdapter=new ProgramAdapter(Score.this,usernames,scores,images);
+                    ProgramAdapter programAdapter=new ProgramAdapter(Score.this,scores,UserNames);
                     mScoreTable.setAdapter(programAdapter);
                 }
             }

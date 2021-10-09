@@ -10,8 +10,9 @@
     <string name="avatar">Choose Your Avatar</string>
     <string name="back">Back</string>
     <string name="What_is_in_the_picture">What is in the picture</string>
-    <string name="Similar">What is the same</string>
+    <string name="Similar">Find Similarity</string>
     <string name="Different">What is the difference</string>
     <string name="string_login_b_text">Login</string>
     <string name="email_address">Email</string>
+    <string name="getContinue">Continue</string>
 </resources>

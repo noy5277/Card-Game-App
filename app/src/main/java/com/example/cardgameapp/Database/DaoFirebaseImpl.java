@@ -3,7 +3,7 @@ package com.example.cardgameapp.Database;
 import androidx.annotation.NonNull;
 
 import com.example.cardgameapp.User;
-import com.example.cardgameapp.gamesCategorys.DifferentGameObj;
+import com.example.cardgameapp.gamesCategorys.SameGameObj;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -20,13 +20,13 @@ import java.util.Map;
 public class DaoFirebaseImpl implements IDao {
 
     public DatabaseReference mUsersTable;
-    public DatabaseReference mDifferenTable;
+    public DatabaseReference mSameGameTable;
     public FirebaseAuth mAuthDB;
     private static DaoFirebaseImpl mInstance;
 
     public DaoFirebaseImpl() {
         this.mUsersTable = FirebaseDatabase.getInstance().getReference("Users");
-        this.mDifferenTable=FirebaseDatabase.getInstance().getReference("Different");
+        this.mSameGameTable=FirebaseDatabase.getInstance().getReference("SameGame");
         this.mAuthDB = FirebaseAuth.getInstance();
     }
 
@@ -44,8 +44,8 @@ public class DaoFirebaseImpl implements IDao {
     }
 
     @Override
-    public void writeNewDifferentGame(DifferentGameObj obj) {
-        mDifferenTable.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(obj);
+    public void writeNewSameGame(SameGameObj game) {
+        mSameGameTable.child(game.getAnswer()).setValue(game);
     }
 
 
