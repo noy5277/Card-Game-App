@@ -3,14 +3,11 @@ package com.example.cardgameapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -19,14 +16,13 @@ import android.widget.Toast;
 
 import com.example.cardgameapp.gamesCategorys.Games;
 import com.example.cardgameapp.gamesCategorys.SameGameObj;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -36,7 +32,7 @@ import java.util.Random;
 public class SimilarityGame extends AppCompatActivity implements IObserver {
 
     private Games games;
-    private static int level=0;
+    private int level=0;
     private HashMap<Integer, TextView> letters;
     private StringBuilder answer;
     private LinearLayout layoutAnswer;
@@ -46,11 +42,14 @@ public class SimilarityGame extends AppCompatActivity implements IObserver {
     private static int countAnswer;
     private ProgressBar progressBar;
     private TextView lives, score;
+    private int livesInt, scoreInt;
     private DatabaseReference sameGameReference;
+    private DatabaseReference userReference;
     private HashMap<Integer,Integer> saveIndexLetters;
     private int answerSize;
     private String sourceAnswer;
     private ProgressBarThread thread;
+
 
 
     @Override
@@ -64,12 +63,18 @@ public class SimilarityGame extends AppCompatActivity implements IObserver {
         progressBar=findViewById(R.id.progressBar);
         indexAnswer=0;
         countAnswer=0;
+        //GetScoreFromDB();
+        livesInt=3;
+        scoreInt=50;
+        lives=findViewById(R.id.WIThartCount);
+        score=findViewById(R.id.WITPcoins);
         imageView1=findViewById(R.id.imageView1);
         imageView2=findViewById(R.id.imageView2);
         imageView3=findViewById(R.id.imageView3);
         imageView4=findViewById(R.id.imageView4);
         layoutAnswer=findViewById(R.id.answerLayout);
         sameGameReference=FirebaseDatabase.getInstance().getReference("SameGame");
+        userReference=FirebaseDatabase.getInstance().getReference("User");
         TaggingLetters();
         Init();
 
@@ -173,8 +178,31 @@ public class SimilarityGame extends AppCompatActivity implements IObserver {
         }
     }
 
+    public void GetScoreFromDB()
+    {
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        FirebaseDatabase.getInstance().getReference("Users").child(uid)
+                .addValueEventListener(new ValueEventListener() { //attach listener
+
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) { //something changed!
+                        score.setText(dataSnapshot.child("score").getValue(Integer.class));
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                    }
+                });
+    }
+
+    public void UpdateDetails()
+    {
+        lives.setText(Integer.toString(livesInt));
+        score.setText(Integer.toString(scoreInt));
+    }
+
     public void Init()
     {
+            UpdateDetails();
             countAnswer = 0;
             indexAnswer = 0;
             layoutAnswer.removeAllViews();
@@ -263,19 +291,23 @@ public class SimilarityGame extends AppCompatActivity implements IObserver {
             if(answer.toString().equals(sourceAnswer))
             {
                 level++;
+                scoreInt+=10;
                 thread.Exit();
-                if(level<=6)
+                if(level<6)
                 {
                     Init();
                 }
-                if(level>6)
+                if(level>5)
                 {
-                    Toast.makeText(this, "finish-game", Toast.LENGTH_SHORT).show();
+                    Intent intent=new Intent(this,Category.class);
+                    startActivity(intent);
                 }
 
             }
             else
             {
+                livesInt--;
+                lives.setText(Integer.toString(livesInt));
                 answer=new StringBuilder();
             }
         }
