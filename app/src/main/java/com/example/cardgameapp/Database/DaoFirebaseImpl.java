@@ -1,5 +1,7 @@
 package com.example.cardgameapp.Database;
 
+import android.app.Application;
+
 import androidx.annotation.NonNull;
 
 import com.example.cardgameapp.User;
@@ -7,7 +9,9 @@ import com.example.cardgameapp.gamesCategorys.SameGameObj;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -19,19 +23,23 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class DaoFirebaseImpl implements IDao {
+public class DaoFirebaseImpl extends Application implements IDao {
 
     public DatabaseReference mUsersTable;
     public DatabaseReference mSameGameTable;
+    private FirebaseUser mUser;
+    public User user;
     public FirebaseAuth mAuthDB;
     private static DaoFirebaseImpl mInstance;
     private String userId;
     public DaoFirebaseImpl() {
+    }
+    public void build(){
         this.mUsersTable = FirebaseDatabase.getInstance().getReference("Users");
         this.mSameGameTable=FirebaseDatabase.getInstance().getReference("SameGame");
-        this.mAuthDB=FirebaseAuth.getInstance();
+        this.mAuthDB = FirebaseAuth.getInstance();
+        this.mUser = mAuthDB.getCurrentUser();
     }
-
     public static DaoFirebaseImpl getInstance() {
         if (mInstance == null) {
             mInstance = new DaoFirebaseImpl();
@@ -57,7 +65,6 @@ public class DaoFirebaseImpl implements IDao {
         mSameGameTable.child(Integer.toString(game.getLevel())).setValue(game);
     }
 
-
     @Override
     public User getUser(String userId) {
         Task<DataSnapshot> task = mUsersTable.child(userId).get();
@@ -76,7 +83,11 @@ public class DaoFirebaseImpl implements IDao {
     public void UpdateUser(User user) {
         Map<String, Object> userValues = userToMap(user);
         Map<String, Object> childUpdates = new HashMap<>();
-        childUpdates.put("/posts/" + user.getUserName(), userValues);
+
+        for (Map.Entry<String, Object> entry : userValues.entrySet()) {
+            childUpdates.put("/"+mUser.getUid() +"/" + entry.getKey(), entry.getValue());
+        }
+
         mUsersTable.updateChildren(childUpdates);
     }
 
@@ -85,6 +96,10 @@ public class DaoFirebaseImpl implements IDao {
         ArrayList<User> list=new ArrayList<User>();
         Query query = mUsersTable.orderByChild("Score");
         return query;
+    }
+    @Override
+    public String getCurrentUserId(){
+        return mUser != null? mUser.getTenantId() :"";
     }
 
 
