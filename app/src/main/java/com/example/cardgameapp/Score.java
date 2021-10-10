@@ -45,8 +45,7 @@ public class Score extends AppCompatActivity {
                 .addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                PriorityQueue<ScoreItem> pq = new
-                        PriorityQueue<ScoreItem>(100, new ScoreComparator());
+                PriorityQueue<ScoreItem> pq = new PriorityQueue<ScoreItem>(100, new ScoreComparator());
                 if(snapshot.exists())
                 {
                     for(DataSnapshot dss:snapshot.getChildren())

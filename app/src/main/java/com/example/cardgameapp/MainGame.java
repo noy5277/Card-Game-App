@@ -91,8 +91,10 @@ public class MainGame extends AppCompatActivity {
 
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) { //something changed!
-                    user = dataSnapshot.getValue(User.class);
-                    buildGame();
+                playerScore.setText(dataSnapshot.child("score").getValue().toString());
+                userName.setText(dataSnapshot.child("userName").getValue().toString());
+                //user = dataSnapshot.getValue(User.class);
+                    //buildGame();
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {

@@ -14,9 +14,12 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.cardgameapp.Database.DaoFirebaseImpl;
+import com.example.cardgameapp.Database.IDao;
 import com.example.cardgameapp.gamesCategorys.Games;
 import com.example.cardgameapp.gamesCategorys.SameGameObj;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -49,7 +52,9 @@ public class SimilarityGame extends AppCompatActivity implements IObserver {
     private int answerSize;
     private String sourceAnswer;
     private ProgressBarThread thread;
-
+    private IDao db;
+    private FirebaseUser FBuser;
+    private FirebaseAuth mAuth;
 
 
     @Override
@@ -65,7 +70,9 @@ public class SimilarityGame extends AppCompatActivity implements IObserver {
         countAnswer=0;
         //GetScoreFromDB();
         livesInt=3;
-        scoreInt=50;
+        mAuth = FirebaseAuth.getInstance();
+        FBuser = mAuth.getCurrentUser();
+        db= DaoFirebaseImpl.getInstance();
         lives=findViewById(R.id.WIThartCount);
         score=findViewById(R.id.WITPcoins);
         imageView1=findViewById(R.id.imageView1);
@@ -74,7 +81,7 @@ public class SimilarityGame extends AppCompatActivity implements IObserver {
         imageView4=findViewById(R.id.imageView4);
         layoutAnswer=findViewById(R.id.answerLayout);
         sameGameReference=FirebaseDatabase.getInstance().getReference("SameGame");
-        userReference=FirebaseDatabase.getInstance().getReference("User");
+        userReference=FirebaseDatabase.getInstance().getReference("Users");
         TaggingLetters();
         Init();
 
@@ -178,26 +185,12 @@ public class SimilarityGame extends AppCompatActivity implements IObserver {
         }
     }
 
-    public void GetScoreFromDB()
-    {
-        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        FirebaseDatabase.getInstance().getReference("Users").child(uid)
-                .addValueEventListener(new ValueEventListener() { //attach listener
 
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) { //something changed!
-                        score.setText(dataSnapshot.child("score").getValue(Integer.class));
-                    }
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                    }
-                });
-    }
 
     public void UpdateDetails()
     {
         lives.setText(Integer.toString(livesInt));
-        score.setText(Integer.toString(scoreInt));
+
     }
 
     public void Init()
@@ -207,6 +200,20 @@ public class SimilarityGame extends AppCompatActivity implements IObserver {
             indexAnswer = 0;
             layoutAnswer.removeAllViews();
             answer = new StringBuilder();
+            String uid = FBuser.getUid();
+            ValueEventListener scoreListener=new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    TextView score=findViewById(R.id.WITPcoins);
+                    score.setText(Integer.toString(snapshot.child("score").getValue(Integer.class)));
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            };
+            userReference.child(uid).addValueEventListener(scoreListener);
 
             ValueEventListener sameGameListener = new ValueEventListener() {
                 @Override
@@ -291,8 +298,10 @@ public class SimilarityGame extends AppCompatActivity implements IObserver {
             if(answer.toString().equals(sourceAnswer))
             {
                 level++;
+                scoreInt=Integer.valueOf(score.getText().toString());
                 scoreInt+=10;
                 thread.Exit();
+                db.UpdateUser(scoreInt);
                 if(level<6)
                 {
                     Init();
