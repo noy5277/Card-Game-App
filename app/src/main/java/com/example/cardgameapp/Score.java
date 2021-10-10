@@ -18,6 +18,8 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.PriorityQueue;
 
 public class Score extends AppCompatActivity {
 
@@ -27,6 +29,7 @@ public class Score extends AppCompatActivity {
     private  ArrayList<String> UserNames;
     private static IDao DB;
     private Query query;
+
 
 
     @Override
@@ -42,16 +45,17 @@ public class Score extends AppCompatActivity {
                 .addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                PriorityQueue<ScoreItem> pq = new
+                        PriorityQueue<ScoreItem>(100, new ScoreComparator());
                 if(snapshot.exists())
                 {
-
                     for(DataSnapshot dss:snapshot.getChildren())
                     {
-                        scores.add(new ScoreItem(dss.child("userName").getValue(String.class),String.valueOf(dss.child("score").getValue(Integer.class)),dss.child("image").getValue(Integer.class)));
+                        pq.add(new ScoreItem(dss.child("userName").getValue(String.class),dss.child("score").getValue(Integer.class),dss.child("image").getValue(Integer.class)));
                         UserNames.add(dss.child("userName").getValue(String.class));
                     }
 
-                    ProgramAdapter programAdapter=new ProgramAdapter(Score.this,scores,UserNames);
+                    ProgramAdapter programAdapter=new ProgramAdapter(Score.this,pq,UserNames);
                     mScoreTable.setAdapter(programAdapter);
                 }
             }

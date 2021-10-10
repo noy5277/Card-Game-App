@@ -9,17 +9,18 @@ import android.widget.ArrayAdapter;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.PriorityQueue;
 
 public class ProgramAdapter extends ArrayAdapter<String> {
     Context context;
-    ArrayList<ScoreItem> scores;
+    PriorityQueue<ScoreItem> pq;
 
-
-    public ProgramAdapter(@NonNull Context context,ArrayList<ScoreItem> scores,ArrayList<String> UserNames) {
-        super(context, R.layout.single_item,R.id.title, UserNames);
+    public ProgramAdapter(@NonNull Context context, PriorityQueue<ScoreItem> pq,ArrayList<String> Usernames) {
+        super(context, R.layout.single_item,R.id.title,Usernames);
         this.context=context;
-       this.scores =scores;
+        this.pq =pq;
     }
 
 
@@ -39,10 +40,10 @@ public class ProgramAdapter extends ArrayAdapter<String> {
         {
             holder= (ProgramViewHolder) singleItem.getTag();
         }
-
-        holder.itemImage.setImageResource(scores.get(position).images);
-        holder.title.setText(scores.get(position).usernames);
-        holder.description.setText("Score: "+scores.get(position).scores);
+        ScoreItem scores= pq.poll();
+        holder.itemImage.setImageResource(scores.getImages());
+        holder.title.setText(scores.getUsernames());
+        holder.description.setText("Score: "+Integer.toString(scores.getScores()));
         return singleItem;
     }
 }
