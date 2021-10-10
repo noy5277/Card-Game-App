@@ -99,7 +99,7 @@ public class DaoFirebaseImpl extends Application implements IDao {
     }
     @Override
     public String getCurrentUserId(){
-        return mUser != null? mUser.getTenantId() :"";
+        return mUser != null? mUser.getUid() :"";
     }
 
 
