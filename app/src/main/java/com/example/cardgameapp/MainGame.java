@@ -89,16 +89,16 @@ public class MainGame extends AppCompatActivity {
         FirebaseDatabase.getInstance().getReference("Users").child(uid)
                 .addValueEventListener(new ValueEventListener() { //attach listener
 
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) { //something changed!
-                playerScore.setText(dataSnapshot.child("score").getValue().toString());
-                userName.setText(dataSnapshot.child("userName").getValue().toString());
-                //user = dataSnapshot.getValue(User.class);
-                    //buildGame();
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-            }
-        });
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) { //something changed!
+                        playerScore.setText(dataSnapshot.child("score").getValue().toString());
+                        userName.setText(dataSnapshot.child("userName").getValue().toString());
+                        //user = dataSnapshot.getValue(User.class);
+                        //buildGame();
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                    }
+                });
     }
 }

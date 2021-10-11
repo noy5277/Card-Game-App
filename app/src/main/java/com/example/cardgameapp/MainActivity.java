@@ -90,7 +90,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .addOnCompleteListener(task ->{
                 if (task.isSuccessful())
                 {
+                    ((DaoFirebaseImpl) this.getApplication()).build();
                     startActivity(new Intent(MainActivity.this,MainGame.class));
+
                 }
                 else {
                     Toast.makeText(MainActivity.this,"Faild to login",Toast.LENGTH_LONG).show();
