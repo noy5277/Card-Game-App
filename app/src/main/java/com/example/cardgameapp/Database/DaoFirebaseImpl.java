@@ -27,7 +27,7 @@ public class DaoFirebaseImpl extends Application implements IDao {
 
     public DatabaseReference mUsersTable;
     public DatabaseReference mSameGameTable;
-    private FirebaseUser mUser;
+    public FirebaseUser mUser;
     public User user;
     public FirebaseAuth mAuthDB;
     private static DaoFirebaseImpl mInstance;
@@ -81,10 +81,7 @@ public class DaoFirebaseImpl extends Application implements IDao {
         Query query = mUsersTable.orderByChild("Score");
         return query;
     }
-    @Override
-    public String getCurrentUserId(){
-        return mUser != null? mUser.getUid() :"";
-    }
+
 
 
 }

@@ -327,11 +327,7 @@ public class WhatInThePicture extends AppCompatActivity {
                 startActivity(new Intent(WhatInThePicture.this, MainGame.class));
             }
         });
-
-        String uid = ((DaoFirebaseImpl) this.getApplication()).getCurrentUserId();
-        user = ((DaoFirebaseImpl) this.getApplication()).getUser(uid);
-        user.setScore(user.getScore()+score);
-        ((DaoFirebaseImpl) this.getApplication()).UpdateUser(user);
+        daoFirebaseImpl.UpdateUser(score);
 
         mPopupWindow.showAtLocation(mRelativeLayout, Gravity.CENTER,0,0);
     }
