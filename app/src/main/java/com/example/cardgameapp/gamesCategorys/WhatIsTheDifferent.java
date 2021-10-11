@@ -54,6 +54,7 @@ public class WhatIsTheDifferent extends AppCompatActivity {
         DifferentGameReference= FirebaseDatabase.getInstance().getReference("Different");
         hartCountText.setText(String.valueOf(hartCount));
         Init(level);
+        ChooseLevel(game);
         scoreDifference=0;
     }
 
@@ -72,7 +73,6 @@ public class WhatIsTheDifferent extends AppCompatActivity {
 
     public void ChooseLevel(DifferentGameObj game)
     {
-        differentGames.get(level);
         LayoutInflater inflater =(LayoutInflater) this.getSystemService(this.LAYOUT_INFLATER_SERVICE);
         img1.setImageResource(game.getPicturePath1());
         img2.setImageResource(game.getPicturePath2());
@@ -169,7 +169,7 @@ public class WhatIsTheDifferent extends AppCompatActivity {
 
     public void Init(int level)
     {
-        ValueEventListener DifferentGameListener = new ValueEventListener() {
+       /** ValueEventListener DifferentGameListener = new ValueEventListener() {
             @Override
             public void onDataChange( DataSnapshot snapshot) {
                 DifferentGameObj game = new DifferentGameObj();
@@ -187,29 +187,29 @@ public class WhatIsTheDifferent extends AppCompatActivity {
 
             }
 
-        };
+        };**/
         switch (level)
         {
             case 0:
-                DifferentGameReference.child("0").addValueEventListener(DifferentGameListener);
+                game=games.GetDifferentGames().get(0);
                 break;
             case 1:
-                DifferentGameReference.child("1").addValueEventListener(DifferentGameListener);
+                game=games.GetDifferentGames().get(1);
                 break;
             case 2:
-                DifferentGameReference.child("2").addValueEventListener(DifferentGameListener);
+                game=games.GetDifferentGames().get(2);
                 break;
             case 3:
-                DifferentGameReference.child("3").addValueEventListener(DifferentGameListener);
+                game=games.GetDifferentGames().get(3);
                 break;
             case 4:
-                DifferentGameReference.child("4").addValueEventListener(DifferentGameListener);
+                game=games.GetDifferentGames().get(4);
                 break;
             case 5:
-                DifferentGameReference.child("5").addValueEventListener(DifferentGameListener);
+                game=games.GetDifferentGames().get(5);
                 break;
             case 6:
-                DifferentGameReference.child("6").addValueEventListener(DifferentGameListener);
+                game=games.GetDifferentGames().get(6);
                 break;
         }
     }
