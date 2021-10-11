@@ -1,7 +1,6 @@
 package com.example.cardgameapp.Database;
 
 import com.example.cardgameapp.User;
-import com.example.cardgameapp.gamesCategorys.DifferentGameObj;
 import com.example.cardgameapp.gamesCategorys.SameGameObj;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -16,11 +15,7 @@ public interface IDao {
 
     void writeNewSameGame(SameGameObj game);
 
-    void writeNewDifferentGame(DifferentGameObj obj);
-
-    User getUser(String userId);
-
-    void UpdateUser(User user);
+    void UpdateUser(Integer score);
 
     Query orderByScore();
 

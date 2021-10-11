@@ -31,8 +31,6 @@ public class Games {
 
     }
 
-
-
     public static Games getInstance() {
         if (mInstance == null) {
             mInstance = new Games();
@@ -57,33 +55,6 @@ public class Games {
         }
     }
 
-    public void GetSameGameFromDb()
-    {
-        sameGames.put(0,new SameGameObj(R.drawable.bucket,R.drawable.sandcastle,R.drawable.shell,R.drawable.sunglasses,"Beach",0));
-                /*
-                FirebaseDatabase.getInstance().getReference("SameGame")
-                .addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot)
-                    {
-                        if(snapshot.exists())
-                        {
-                            for(DataSnapshot dss:snapshot.getChildren())
-                            {
-                                int level=dss.child("level").getValue(Integer.class);
-                                SameGameObj game=dss.getValue(SameGameObj.class);
-                                sameGames.put(0,new SameGameObj(R.drawable.bucket,R.drawable.sandcastle,R.drawable.shell,R.drawable.sunglasses,"Beach",0));
-                            }
-                        }
-                    }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
-
-              */
-    }
 
 }
