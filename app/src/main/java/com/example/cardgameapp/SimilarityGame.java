@@ -55,6 +55,7 @@ public class SimilarityGame extends AppCompatActivity implements IObserver {
     private IDao db;
     private FirebaseUser FBuser;
     private FirebaseAuth mAuth;
+    private TextView levelView;
 
 
     @Override
@@ -79,6 +80,7 @@ public class SimilarityGame extends AppCompatActivity implements IObserver {
         imageView2=findViewById(R.id.imageView2);
         imageView3=findViewById(R.id.imageView3);
         imageView4=findViewById(R.id.imageView4);
+        levelView=findViewById(R.id.WITPlevel);
         layoutAnswer=findViewById(R.id.answerLayout);
         sameGameReference=FirebaseDatabase.getInstance().getReference("SameGame");
         userReference=FirebaseDatabase.getInstance().getReference("Users");
@@ -298,6 +300,7 @@ public class SimilarityGame extends AppCompatActivity implements IObserver {
             if(answer.toString().equals(sourceAnswer))
             {
                 level++;
+                levelView.setText(Integer.toString(level));
                 scoreInt=Integer.valueOf(score.getText().toString());
                 scoreInt+=10;
                 thread.Exit();
