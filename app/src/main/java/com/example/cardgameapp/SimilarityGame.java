@@ -18,6 +18,7 @@ import com.example.cardgameapp.Database.DaoFirebaseImpl;
 import com.example.cardgameapp.Database.IDao;
 import com.example.cardgameapp.gamesCategorys.Games;
 import com.example.cardgameapp.gamesCategorys.SameGameObj;
+import com.example.cardgameapp.userLogIn.RegistrUserActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -33,7 +34,7 @@ import java.util.List;
 import java.util.Random;
 
 public class SimilarityGame extends AppCompatActivity implements IObserver {
-
+    public static final String Next_Level="NEXT.LEVEL";
     private Games games;
     private int level=0;
     private HashMap<Integer, TextView> letters;
@@ -239,7 +240,11 @@ public class SimilarityGame extends AppCompatActivity implements IObserver {
                 }
 
             };
-
+              Bundle extras=getIntent().getExtras();
+              if(extras==null)
+                  level=0;
+              else
+                  level=extras.getInt(Next_Level);
             switch (level) {
                 case 0:
                     sameGameReference.child("0").addValueEventListener(sameGameListener);
@@ -289,38 +294,46 @@ public class SimilarityGame extends AppCompatActivity implements IObserver {
         indexAnswer++;
         countAnswer++;
         TextView textView;
-        if(countAnswer==answerSize)
+        if(countAnswer<=answerSize)
         {
-            for(int i=0;i<answerSize;i++)
+            if(countAnswer==answerSize)
             {
-                textView=findViewById(i);
-                answer.append(textView.getText());
-            }
-            Toast.makeText(this, Boolean.toString(answer.toString().equals(sourceAnswer)), Toast.LENGTH_SHORT).show();
-            if(answer.toString().equals(sourceAnswer))
-            {
-                level++;
-                levelView.setText(Integer.toString(level));
-                scoreInt=Integer.valueOf(score.getText().toString());
-                scoreInt+=10;
-                thread.Exit();
-                db.UpdateUser(scoreInt);
-                if(level<6)
+                for(int i=0;i<answerSize;i++)
                 {
-                    Init();
+                    textView=findViewById(i);
+                    answer.append(textView.getText());
                 }
-                if(level>5)
+                Toast.makeText(this, Boolean.toString(answer.toString().equals(sourceAnswer)), Toast.LENGTH_SHORT).show();
+                if(answer.toString().equals(sourceAnswer))
                 {
-                    Intent intent=new Intent(this,Category.class);
-                    startActivity(intent);
-                }
+                    level++;
+                    levelView.setText(Integer.toString(level));
+                    scoreInt=Integer.valueOf(score.getText().toString());
+                    scoreInt+=10;
+                    thread.Exit();
+                    db.UpdateUser(scoreInt);
+                    if(level<6)
+                    {
+                        /*
+                        Intent intent=new Intent(this, Win.class);
+                        intent.putExtra(Next_Level,level);
+                        startActivity(intent);
+                        */
+                        Init();
+                    }
+                    if(level>5)
+                    {
+                        Intent intent=new Intent(this,Category.class);
+                        startActivity(intent);
+                    }
 
-            }
-            else
-            {
-                livesInt--;
-                lives.setText(Integer.toString(livesInt));
-                answer=new StringBuilder();
+                }
+                else
+                {
+                    livesInt--;
+                    lives.setText(Integer.toString(livesInt));
+                    answer=new StringBuilder();
+                }
             }
         }
     }
