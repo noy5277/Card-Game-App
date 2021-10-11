@@ -15,11 +15,7 @@ public interface IDao {
 
     void writeNewSameGame(SameGameObj game);
 
-    User getUser(String userId);
-
-    String getCurrentUserId();
-
-    void UpdateUser(User user);
+    void UpdateUser(Integer score);
 
     Query orderByScore();
 

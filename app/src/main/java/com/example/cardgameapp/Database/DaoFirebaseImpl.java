@@ -65,30 +65,14 @@ public class DaoFirebaseImpl extends Application implements IDao {
         mSameGameTable.child(Integer.toString(game.getLevel())).setValue(game);
     }
 
-    @Override
-    public User getUser(String userId) {
-        Task<DataSnapshot> task = mUsersTable.child(userId).get();
-        User user = task.getResult().getValue(User.class);
-        return user;
-    }
 
-    private Map<String, Object> userToMap(User user) {
-        HashMap<String, Object> result = new HashMap<>();
-        result.put("clu", user.getClu());
-        result.put("score", user.getScore());
-        return result;
-    }
 
     @Override
-    public void UpdateUser(User user) {
-        Map<String, Object> userValues = userToMap(user);
-        Map<String, Object> childUpdates = new HashMap<>();
-
-        for (Map.Entry<String, Object> entry : userValues.entrySet()) {
-            childUpdates.put("/"+mUser.getUid() +"/" + entry.getKey(), entry.getValue());
-        }
-
-        mUsersTable.updateChildren(childUpdates);
+    public void UpdateUser(Integer score) {
+    String key=mUsersTable.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).getKey();
+    Map<String, Object> childUpdates = new HashMap<>();
+    childUpdates.put(   key+"/score/",score);
+    mUsersTable.updateChildren(childUpdates);
     }
 
     @Override
