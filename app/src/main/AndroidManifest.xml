@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CardGameApp">
         <activity
+            android:name=".gamesCategorys.WhatIsTheDifferent"
+            android:exported="true" />
+        <activity
             android:name=".SimilarityGame"
             android:exported="true" />
         <activity
