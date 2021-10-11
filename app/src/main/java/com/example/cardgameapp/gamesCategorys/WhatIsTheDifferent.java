@@ -61,10 +61,10 @@ public class WhatIsTheDifferent extends AppCompatActivity {
     {
         games.CreateDifferentGame(new DifferentGameObj( R.drawable.tricycle, R.drawable.motorcycle, R.drawable.hoverboard, R.drawable.scooter, R.drawable.tricycle,0));
         games.CreateDifferentGame(new DifferentGameObj(R.drawable.stork, R.drawable.dolphin, R.drawable.fish, R.drawable.shark, R.drawable.stork,1));
-        games.CreateDifferentGame(new DifferentGameObj( R.drawable.salmon, R.drawable.ice_cream, R.drawable.salmon, R.drawable.chocolate, R.drawable.cake,2));
-        games.CreateDifferentGame(new DifferentGameObj( R.drawable.not_a_salad, R.drawable.not_a_salad, R.drawable.salad1, R.drawable.salad2, R.drawable.salad3,3));
-        games.CreateDifferentGame(new DifferentGameObj(R.drawable.green_heart, R.drawable.red_ball, R.drawable.a_red_apple, R.drawable.red_roses, R.drawable.green_heart,4));
-        games.CreateDifferentGame(new DifferentGameObj( R.drawable.butterfly, R.drawable.lion, R.drawable.hamster, R.drawable.giraffe, R.drawable.butterfly,5));
+        games.CreateDifferentGame(new DifferentGameObj( R.drawable.slmon, R.drawable.ice_cream, R.drawable.slmon, R.drawable.chocolate, R.drawable.cake,2));
+        games.CreateDifferentGame(new DifferentGameObj( R.drawable.not_salad, R.drawable.not_salad, R.drawable.salad1, R.drawable.salad2, R.drawable.salad3,3));
+        games.CreateDifferentGame(new DifferentGameObj(R.drawable.watch_green, R.drawable.red_ball, R.drawable.balon, R.drawable.red_roses, R.drawable.watch_green,4));
+        games.CreateDifferentGame(new DifferentGameObj( R.drawable.butterfly, R.drawable.lionn, R.drawable.hamster, R.drawable.giraffe, R.drawable.butterfly,5));
         games.CreateDifferentGame(new DifferentGameObj( R.drawable.banana, R.drawable.gamba, R.drawable.cucumber, R.drawable.banana, R.drawable.tomato,6));
         games.WriteDifferentGames();
 
