@@ -5,6 +5,7 @@ import com.example.cardgameapp.gamesCategorys.SameGameObj;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.database.Query;
+import com.example.cardgameapp.gamesCategorys.DifferentGameObj;
 
 import java.util.ArrayList;
 
@@ -16,6 +17,8 @@ public interface IDao {
     void writeNewSameGame(SameGameObj game);
 
     void UpdateUser(Integer score);
+
+    void writeNewDifferentGame(DifferentGameObj obj);
 
     Query orderByScore();
 
