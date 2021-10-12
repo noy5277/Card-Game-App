@@ -57,6 +57,7 @@ public class SimilarityGame extends AppCompatActivity implements IObserver {
     private FirebaseUser FBuser;
     private FirebaseAuth mAuth;
     private TextView levelView;
+    private TextView quit;
 
 
     @Override
@@ -77,6 +78,7 @@ public class SimilarityGame extends AppCompatActivity implements IObserver {
         db= DaoFirebaseImpl.getInstance();
         lives=findViewById(R.id.WIThartCount);
         score=findViewById(R.id.WITPcoins);
+        quit=findViewById(R.id.exitLevelBtn);
         imageView1=findViewById(R.id.imageView1);
         imageView2=findViewById(R.id.imageView2);
         imageView3=findViewById(R.id.imageView3);
@@ -89,6 +91,7 @@ public class SimilarityGame extends AppCompatActivity implements IObserver {
         Init();
 
     }
+
 
 
     public void CreateGames()
@@ -307,6 +310,7 @@ public class SimilarityGame extends AppCompatActivity implements IObserver {
                     scoreInt+=10;
                     thread.Exit();
                     db.UpdateUser(scoreInt);
+
                     if(level<6)
                     {
                         Init();
@@ -320,9 +324,17 @@ public class SimilarityGame extends AppCompatActivity implements IObserver {
                 }
                 else
                 {
-                    livesInt--;
-                    lives.setText(Integer.toString(livesInt));
-                    answer=new StringBuilder();
+                    if(livesInt!=0)
+                    {
+                        livesInt--;
+                        lives.setText(Integer.toString(livesInt));
+                        answer=new StringBuilder();
+                    }
+                    else
+                    {
+                        Intent intent=new Intent(this,lose.class);
+                        startActivity(intent);
+                    }
                 }
             }
         }
