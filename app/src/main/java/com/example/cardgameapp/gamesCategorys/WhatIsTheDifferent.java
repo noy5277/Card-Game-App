@@ -1,40 +1,37 @@
 package com.example.cardgameapp.gamesCategorys;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.example.cardgameapp.Category;
+import com.example.cardgameapp.IObserver;
 import com.example.cardgameapp.ProgressBarThread;
 import com.example.cardgameapp.R;
 import com.example.cardgameapp.WIDGames;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
-
-
-import java.util.HashMap;
-
-public class WhatIsTheDifferent extends AppCompatActivity {
+public class WhatIsTheDifferent extends AppCompatActivity implements IObserver {
 
     private WIDGames games;
     private static int level=0;
-    private HashMap<Integer, DifferentGameObj>  differentGames;
+    //private HashMap<Integer, DifferentGameObj>  differentGames;
     private ImageView img1, img2, img3, img4;
     private DifferentGameObj game;
     private ProgressBar progressBar;
-    private TextView gameCoinsText, hartCountText;
+    private TextView gameCoinsText, hartCountText, gameLevelText;
     private int scoreDifference,sourceAnswer;
     private int hartCount=3;
     private DatabaseReference DifferentGameReference;
+    private ProgressBarThread thread;
+
 
 
     @Override
@@ -43,8 +40,9 @@ public class WhatIsTheDifferent extends AppCompatActivity {
         setContentView(R.layout.activity_what_is_the_different);
         gameCoinsText=(TextView) findViewById(R.id.WITPcoins) ;
         hartCountText =(TextView) findViewById(R.id.WIThartCount);
+        progressBar =findViewById(R.id.progressBar);
+        gameLevelText = (TextView) findViewById(R.id.WITPlevel);
         games= WIDGames.getInstance();
-        progressBar=findViewById(R.id.progressBar);
         img1 =findViewById(R.id.image1);
         img2 =findViewById(R.id.image2);
         img3 =findViewById(R.id.image3);
@@ -54,7 +52,7 @@ public class WhatIsTheDifferent extends AppCompatActivity {
         DifferentGameReference= FirebaseDatabase.getInstance().getReference("Different");
         hartCountText.setText(String.valueOf(hartCount));
         Init(level);
-        ChooseLevel(game);
+     //   ChooseLevel(game);
         scoreDifference=0;
     }
 
@@ -69,17 +67,31 @@ public class WhatIsTheDifferent extends AppCompatActivity {
         games.CreateDifferentGame(new DifferentGameObj( R.drawable.banana, R.drawable.gamba, R.drawable.cucumber, R.drawable.banana, R.drawable.tomato,6));
         games.WriteDifferentGames();
 
+
+
+    }
+    public void StartTimerGame()
+    {
+        thread=new ProgressBarThread(progressBar,60);
+        thread.Add(this::Update);
+        thread.start();
+    }
+
+    @Override
+    public void Update() {
+        //time is up intent
+        Intent intent = new Intent(this, Category.class);
+        startActivity(intent);
     }
 
     public void ChooseLevel(DifferentGameObj game)
     {
-        LayoutInflater inflater =(LayoutInflater) this.getSystemService(this.LAYOUT_INFLATER_SERVICE);
         img1.setImageResource(game.getPicturePath1());
         img2.setImageResource(game.getPicturePath2());
         img3.setImageResource(game.getPicturePath3());
         img4.setImageResource(game.getPicturePath4());
-
         img1.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
                 if (game.getDAnswer()== game.getPicturePath1()) {
@@ -142,11 +154,14 @@ public class WhatIsTheDifferent extends AppCompatActivity {
             case "win":
                 scoreDifference= scoreDifference+ 10;
                 gameCoinsText.setText(Integer.toString(scoreDifference));
+                setLevelNumber(game.getLevel()+1);
                 Init(game.getLevel() + 1);
+                thread.Exit();
                 break;
             case "lose":
                 break;
             case "endGame":
+                OpenCategory();
                 break;
             case "addPoints":
                 scoreDifference = scoreDifference+ 10;
@@ -159,67 +174,56 @@ public class WhatIsTheDifferent extends AppCompatActivity {
                 }
                 else{
                     hartCountText.setText(String.valueOf(hartCount));
+                    Init(game.getLevel() + 1);
+                    thread.Exit();
                 }
                 break;
-
-
         }
 
     }
 
     public void Init(int level)
     {
-       /** ValueEventListener DifferentGameListener = new ValueEventListener() {
-            @Override
-            public void onDataChange( DataSnapshot snapshot) {
-                DifferentGameObj game = new DifferentGameObj();
-                game.setDAnswer(snapshot.child("answer").getValue(Integer.class));
-                game.setLevel(snapshot.child("level").getValue(Integer.class));
-                game.setPicturePath1(snapshot.child("PicturePath1").getValue(Integer.class));
-                game.setPicturePath2(snapshot.child("PicturePath2").getValue(Integer.class));
-                game.setPicturePath3(snapshot.child("PicturePath3").getValue(Integer.class));
-                game.setPicturePath4(snapshot.child("PicturePath4").getValue(Integer.class));
-                ChooseLevel(game);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-
-        };**/
         switch (level)
         {
             case 0:
                 game=games.GetDifferentGames().get(0);
+                ChooseLevel(game);
                 break;
             case 1:
                 game=games.GetDifferentGames().get(1);
+                ChooseLevel(game);
                 break;
             case 2:
                 game=games.GetDifferentGames().get(2);
+                ChooseLevel(game);
                 break;
             case 3:
                 game=games.GetDifferentGames().get(3);
+                ChooseLevel(game);
                 break;
             case 4:
                 game=games.GetDifferentGames().get(4);
+                ChooseLevel(game);
                 break;
             case 5:
                 game=games.GetDifferentGames().get(5);
+                ChooseLevel(game);
                 break;
             case 6:
                 game=games.GetDifferentGames().get(6);
+                ChooseLevel(game);
                 break;
         }
-    }
-
-
-    public void StartTimerGame()
-    {
-        ProgressBarThread thread=new ProgressBarThread(progressBar,60);
-        thread.start();
+        StartTimerGame();
 
     }
 
+    private void OpenCategory() {
+        Intent intent = new Intent(this, Category.class);
+        startActivity(intent);
+    }
+    private void setLevelNumber(int level){
+        gameLevelText.setText(String.valueOf(level));
+    }
 }
