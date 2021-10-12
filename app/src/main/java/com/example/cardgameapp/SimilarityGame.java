@@ -18,6 +18,7 @@ import com.example.cardgameapp.Database.DaoFirebaseImpl;
 import com.example.cardgameapp.Database.IDao;
 import com.example.cardgameapp.gamesCategorys.Games;
 import com.example.cardgameapp.gamesCategorys.SameGameObj;
+import com.example.cardgameapp.userLogIn.RegistrUserActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -33,7 +34,7 @@ import java.util.List;
 import java.util.Random;
 
 public class SimilarityGame extends AppCompatActivity implements IObserver {
-
+    public static final String Next_Level="NEXT.LEVEL";
     private Games games;
     private int level=0;
     private HashMap<Integer, TextView> letters;
@@ -56,6 +57,7 @@ public class SimilarityGame extends AppCompatActivity implements IObserver {
     private FirebaseUser FBuser;
     private FirebaseAuth mAuth;
     private TextView levelView;
+    private TextView quit;
 
 
     @Override
@@ -76,6 +78,7 @@ public class SimilarityGame extends AppCompatActivity implements IObserver {
         db= DaoFirebaseImpl.getInstance();
         lives=findViewById(R.id.WIThartCount);
         score=findViewById(R.id.WITPcoins);
+        quit=findViewById(R.id.exitLevelBtn);
         imageView1=findViewById(R.id.imageView1);
         imageView2=findViewById(R.id.imageView2);
         imageView3=findViewById(R.id.imageView3);
@@ -88,6 +91,7 @@ public class SimilarityGame extends AppCompatActivity implements IObserver {
         Init();
 
     }
+
 
 
     public void CreateGames()
@@ -192,78 +196,77 @@ public class SimilarityGame extends AppCompatActivity implements IObserver {
     public void UpdateDetails()
     {
         lives.setText(Integer.toString(livesInt));
-
     }
 
     public void Init()
     {
-            UpdateDetails();
-            countAnswer = 0;
-            indexAnswer = 0;
-            layoutAnswer.removeAllViews();
-            answer = new StringBuilder();
-            String uid = FBuser.getUid();
-            ValueEventListener scoreListener=new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    TextView score=findViewById(R.id.WITPcoins);
-                    score.setText(Integer.toString(snapshot.child("score").getValue(Integer.class)));
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            };
-            userReference.child(uid).addValueEventListener(scoreListener);
-
-            ValueEventListener sameGameListener = new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    SameGameObj game = new SameGameObj();
-                    game.setAnswer(snapshot.child("answer").getValue().toString());
-                    game.setLevel(snapshot.child("level").getValue(Integer.class));
-                    game.setPiq1(snapshot.child("piq1").getValue(Integer.class));
-                    game.setPiq2(snapshot.child("piq2").getValue(Integer.class));
-                    game.setPiq3(snapshot.child("piq3").getValue(Integer.class));
-                    game.setPiq4(snapshot.child("piq4").getValue(Integer.class));
-                    answerSize = game.getAnswer().length();
-                    sourceAnswer = game.getAnswer();
-                    InitLevel(game);
-                    Shuffle(game.getAnswer());
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-
-            };
-
-            switch (level) {
-                case 0:
-                    sameGameReference.child("0").addValueEventListener(sameGameListener);
-                    break;
-                case 1:
-                    sameGameReference.child("1").addValueEventListener(sameGameListener);
-                    break;
-                case 2:
-                    sameGameReference.child("2").addValueEventListener(sameGameListener);
-                    break;
-                case 3:
-                    sameGameReference.child("3").addValueEventListener(sameGameListener);
-                    break;
-                case 4:
-                    sameGameReference.child("4").addValueEventListener(sameGameListener);
-                    break;
-                case 5:
-                    sameGameReference.child("5").addValueEventListener(sameGameListener);
-                    break;
-                case 6:
-                    sameGameReference.child("6").addValueEventListener(sameGameListener);
-                    break;
+        UpdateDetails();
+        countAnswer = 0;
+        indexAnswer = 0;
+        layoutAnswer.removeAllViews();
+        answer = new StringBuilder();
+        String uid = FBuser.getUid();
+        ValueEventListener scoreListener=new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                TextView score=findViewById(R.id.WITPcoins);
+                score.setText(Integer.toString(snapshot.child("score").getValue(Integer.class)));
             }
-            StartGame();
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        };
+        userReference.child(uid).addValueEventListener(scoreListener);
+
+        ValueEventListener sameGameListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                SameGameObj game = new SameGameObj();
+                game.setAnswer(snapshot.child("answer").getValue().toString());
+                game.setLevel(snapshot.child("level").getValue(Integer.class));
+                game.setPiq1(snapshot.child("piq1").getValue(Integer.class));
+                game.setPiq2(snapshot.child("piq2").getValue(Integer.class));
+                game.setPiq3(snapshot.child("piq3").getValue(Integer.class));
+                game.setPiq4(snapshot.child("piq4").getValue(Integer.class));
+                answerSize = game.getAnswer().length();
+                sourceAnswer = game.getAnswer();
+                InitLevel(game);
+                Shuffle(game.getAnswer());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+
+        };
+
+        switch (level) {
+            case 0:
+                sameGameReference.child("0").addValueEventListener(sameGameListener);
+                break;
+            case 1:
+                sameGameReference.child("1").addValueEventListener(sameGameListener);
+                break;
+            case 2:
+                sameGameReference.child("2").addValueEventListener(sameGameListener);
+                break;
+            case 3:
+                sameGameReference.child("3").addValueEventListener(sameGameListener);
+                break;
+            case 4:
+                sameGameReference.child("4").addValueEventListener(sameGameListener);
+                break;
+            case 5:
+                sameGameReference.child("5").addValueEventListener(sameGameListener);
+                break;
+            case 6:
+                sameGameReference.child("6").addValueEventListener(sameGameListener);
+                break;
+        }
+        StartGame();
     }
 
     public void StartGame()
@@ -289,38 +292,50 @@ public class SimilarityGame extends AppCompatActivity implements IObserver {
         indexAnswer++;
         countAnswer++;
         TextView textView;
-        if(countAnswer==answerSize)
+        if(countAnswer<=answerSize)
         {
-            for(int i=0;i<answerSize;i++)
+            if(countAnswer==answerSize)
             {
-                textView=findViewById(i);
-                answer.append(textView.getText());
-            }
-            Toast.makeText(this, Boolean.toString(answer.toString().equals(sourceAnswer)), Toast.LENGTH_SHORT).show();
-            if(answer.toString().equals(sourceAnswer))
-            {
-                level++;
-                levelView.setText(Integer.toString(level));
-                scoreInt=Integer.valueOf(score.getText().toString());
-                scoreInt+=10;
-                thread.Exit();
-                db.UpdateUser(scoreInt);
-                if(level<6)
+                for(int i=0;i<answerSize;i++)
                 {
-                    Init();
+                    textView=findViewById(i);
+                    answer.append(textView.getText());
                 }
-                if(level>5)
+                Toast.makeText(this, Boolean.toString(answer.toString().equals(sourceAnswer)), Toast.LENGTH_SHORT).show();
+                if(answer.toString().equals(sourceAnswer))
                 {
-                    Intent intent=new Intent(this,Category.class);
-                    startActivity(intent);
-                }
+                    level++;
+                    levelView.setText(Integer.toString(level));
+                    scoreInt=Integer.valueOf(score.getText().toString());
+                    scoreInt+=10;
+                    thread.Exit();
+                    db.UpdateUser(scoreInt);
 
-            }
-            else
-            {
-                livesInt--;
-                lives.setText(Integer.toString(livesInt));
-                answer=new StringBuilder();
+                    if(level<6)
+                    {
+                        Init();
+                    }
+                    if(level>5)
+                    {
+                        Intent intent=new Intent(this,Category.class);
+                        startActivity(intent);
+                    }
+
+                }
+                else
+                {
+                    if(livesInt!=0)
+                    {
+                        livesInt--;
+                        lives.setText(Integer.toString(livesInt));
+                        answer=new StringBuilder();
+                    }
+                    else
+                    {
+                        Intent intent=new Intent(this,lose.class);
+                        startActivity(intent);
+                    }
+                }
             }
         }
     }

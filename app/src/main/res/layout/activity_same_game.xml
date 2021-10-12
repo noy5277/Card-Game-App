@@ -132,7 +132,7 @@
 
     <androidx.gridlayout.widget.GridLayout
         android:id="@+id/gridLayout"
-        android:layout_width="269dp"
+        android:layout_width="258dp"
         android:layout_height="257dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
