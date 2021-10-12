@@ -90,7 +90,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .addOnCompleteListener(task ->{
                 if (task.isSuccessful())
                 {
-                    ((DaoFirebaseImpl) this.getApplication()).build();
                     startActivity(new Intent(MainActivity.this,MainGame.class));
 
                 }
