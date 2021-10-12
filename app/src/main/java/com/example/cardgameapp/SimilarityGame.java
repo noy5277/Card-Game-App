@@ -208,7 +208,7 @@ public class SimilarityGame extends AppCompatActivity implements IObserver {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     TextView score=findViewById(R.id.WITPcoins);
-                    score.setText(Integer.toString(snapshot.child("score").getValue(Integer.class)));
+                 //   score.setText(Integer.toString(snapshot.child("score").getValue(Integer.class)));
                 }
 
                 @Override

@@ -8,8 +8,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.cardgameapp.gamesCategorys.DifferentGame;
 import com.example.cardgameapp.gamesCategorys.WhatInThePicture;
+import com.example.cardgameapp.gamesCategorys.WhatIsTheDifferent;
 
 public class Category extends AppCompatActivity {
     private Button backMainGame,whatIsInThePictureBtn,openDifferentButton;
@@ -46,7 +46,7 @@ public class Category extends AppCompatActivity {
     }
 
     private void OpenDifferentGame() {
-        Intent intent = new Intent(this, DifferentGame.class);
+        Intent intent = new Intent(this, WhatIsTheDifferent.class);
         startActivity(intent);
     }
 
