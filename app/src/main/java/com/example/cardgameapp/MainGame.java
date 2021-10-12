@@ -69,7 +69,7 @@ public class MainGame extends AppCompatActivity {
         startActivity(intent);
     }
     public void Opensettings() {
-        Intent intent = new Intent(this, Category.class);
+        Intent intent = new Intent(this, Settings.class);
         startActivity(intent);
     }
 

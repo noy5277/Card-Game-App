@@ -244,7 +244,7 @@ public class WhatInThePicture extends AppCompatActivity {
     }
 
     private void setLevelNumber(int level){
-        //gameLevelText.setText(String.valueOf(level));
+        gameLevelText.setText(String.valueOf(level));
     }
     private void backButton(){
         backBtn.setOnClickListener(new View.OnClickListener() {

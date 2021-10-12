@@ -33,13 +33,12 @@ public class DaoFirebaseImpl extends Application implements IDao {
     private static DaoFirebaseImpl mInstance;
     private String userId;
     public DaoFirebaseImpl() {
-    }
-    public void build(){
         this.mUsersTable = FirebaseDatabase.getInstance().getReference("Users");
         this.mSameGameTable=FirebaseDatabase.getInstance().getReference("SameGame");
         this.mAuthDB = FirebaseAuth.getInstance();
         this.mUser = mAuthDB.getCurrentUser();
     }
+
     public static DaoFirebaseImpl getInstance() {
         if (mInstance == null) {
             mInstance = new DaoFirebaseImpl();
