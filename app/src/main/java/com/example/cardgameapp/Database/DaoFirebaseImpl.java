@@ -1,5 +1,7 @@
 package com.example.cardgameapp.Database;
 
+import android.app.Application;
+
 import androidx.annotation.NonNull;
 
 import com.example.cardgameapp.User;
@@ -7,33 +9,37 @@ import com.example.cardgameapp.gamesCategorys.SameGameObj;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.example.cardgameapp.gamesCategorys.DifferentGameObj;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class DaoFirebaseImpl implements IDao {
+public class DaoFirebaseImpl extends Application implements IDao {
 
     public DatabaseReference mUsersTable;
     public DatabaseReference mSameGameTable;
+    public FirebaseUser mUser;
+    public User user;
     public FirebaseAuth mAuthDB;
-    public DatabaseReference mDifferenTable;
     private static DaoFirebaseImpl mInstance;
     private String userId;
     public DaoFirebaseImpl() {
+    }
+    public void build(){
         this.mUsersTable = FirebaseDatabase.getInstance().getReference("Users");
         this.mSameGameTable=FirebaseDatabase.getInstance().getReference("SameGame");
-        this.mAuthDB=FirebaseAuth.getInstance();
-        this.mDifferenTable=FirebaseDatabase.getInstance().getReference("Different");
+        this.mAuthDB = FirebaseAuth.getInstance();
+        this.mUser = mAuthDB.getCurrentUser();
     }
-
     public static DaoFirebaseImpl getInstance() {
         if (mInstance == null) {
             mInstance = new DaoFirebaseImpl();
@@ -54,9 +60,6 @@ public class DaoFirebaseImpl implements IDao {
         });
     }
 
-    public void writeNewDifferentGame(DifferentGameObj obj) {
-        mDifferenTable.child(String.valueOf(obj.getDAnswer())).setValue(obj);
-    }
     @Override
     public void writeNewSameGame(SameGameObj game) {
         mSameGameTable.child(Integer.toString(game.getLevel())).setValue(game);
@@ -78,6 +81,7 @@ public class DaoFirebaseImpl implements IDao {
         Query query = mUsersTable.orderByChild("Score");
         return query;
     }
+
 
 
 }
