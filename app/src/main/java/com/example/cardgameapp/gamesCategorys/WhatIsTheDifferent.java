@@ -22,12 +22,11 @@ public class WhatIsTheDifferent extends AppCompatActivity implements IObserver {
 
     private WIDGames games;
     private static int level=0;
-    //private HashMap<Integer, DifferentGameObj>  differentGames;
     private ImageView img1, img2, img3, img4;
     private DifferentGameObj game;
     private ProgressBar progressBar;
     private TextView gameCoinsText, hartCountText, gameLevelText;
-    private int scoreDifference,sourceAnswer;
+    private int scoreDifference;
     private int hartCount=3;
     private DatabaseReference DifferentGameReference;
     private ProgressBarThread thread;
@@ -52,7 +51,6 @@ public class WhatIsTheDifferent extends AppCompatActivity implements IObserver {
         DifferentGameReference= FirebaseDatabase.getInstance().getReference("Different");
         hartCountText.setText(String.valueOf(hartCount));
         Init(level);
-     //   ChooseLevel(game);
         scoreDifference=0;
     }
 
