@@ -20,7 +20,7 @@
         app:layout_constraintVertical_bias="0.076" />
 
     <ImageView
-        android:id="@+id/imageView7"
+        android:id="@+id/SoundBtn"
         android:layout_width="113dp"
         android:layout_height="96dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -28,10 +28,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.319"
-        app:srcCompat="@drawable/sound_on" />
+        android:background="@drawable/sound_on" />
 
     <ImageView
-        android:id="@+id/imageView11"
+        android:id="@+id/Logout"
         android:layout_width="205dp"
         android:layout_height="88dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -48,11 +48,11 @@
         android:layout_height="50dp"
         android:text="LOGO OUT"
         android:textSize="34sp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView11"
-        app:layout_constraintEnd_toEndOf="@+id/imageView11"
+        app:layout_constraintBottom_toBottomOf="@+id/Logout"
+        app:layout_constraintEnd_toEndOf="@+id/Logout"
         app:layout_constraintHorizontal_bias="0.504"
-        app:layout_constraintStart_toStartOf="@+id/imageView11"
-        app:layout_constraintTop_toTopOf="@+id/imageView11" />
+        app:layout_constraintStart_toStartOf="@+id/Logout"
+        app:layout_constraintTop_toTopOf="@+id/Logout" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

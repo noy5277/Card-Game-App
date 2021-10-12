@@ -17,6 +17,7 @@ public interface IDao {
 
     void UpdateUser(Integer score);
 
+    void SignOut();
     Query orderByScore();
 
 

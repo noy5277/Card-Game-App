@@ -75,6 +75,11 @@ public class DaoFirebaseImpl extends Application implements IDao {
     }
 
     @Override
+    public void SignOut() {
+        mAuthDB.signOut();
+    }
+
+    @Override
     public Query orderByScore() {
         ArrayList<User> list=new ArrayList<User>();
         Query query = mUsersTable.orderByChild("Score");
