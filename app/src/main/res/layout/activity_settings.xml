@@ -34,6 +34,7 @@
         android:id="@+id/Logout"
         android:layout_width="205dp"
         android:layout_height="88dp"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
@@ -46,13 +47,15 @@
         android:id="@+id/textView4"
         android:layout_width="173dp"
         android:layout_height="50dp"
-        android:text="LOGO OUT"
+
+        android:text="@string/log_out"
         android:textSize="34sp"
         app:layout_constraintBottom_toBottomOf="@+id/Logout"
         app:layout_constraintEnd_toEndOf="@+id/Logout"
-        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintHorizontal_bias="0.531"
         app:layout_constraintStart_toStartOf="@+id/Logout"
-        app:layout_constraintTop_toTopOf="@+id/Logout" />
+        app:layout_constraintTop_toTopOf="@+id/Logout"
+        app:layout_constraintVertical_bias="0.526" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -15,4 +15,14 @@
     <string name="string_login_b_text">Login</string>
     <string name="email_address">Email</string>
     <string name="getContinue">Continue</string>
+    <string name="fui_password_hint">Password</string>
+    <string name="register">Register</string>
+    <string name="endGame">End Game</string>
+    <string name="yourScore">Your Score</string>
+    <string name="play">Play</string>
+    <string name="fullname">Full Name</string>
+    <string name="nickname">Username</string>
+    <string name="level">Level</string>
+    <string name="quit">Quit</string>
+    <string name="next">Next</string>
 </resources>

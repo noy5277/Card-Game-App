@@ -87,6 +87,7 @@ public class SimilarityGame extends AppCompatActivity implements IObserver {
         layoutAnswer=findViewById(R.id.answerLayout);
         sameGameReference=FirebaseDatabase.getInstance().getReference("SameGame");
         userReference=FirebaseDatabase.getInstance().getReference("Users");
+
         TaggingLetters();
         Init();
 
@@ -301,10 +302,11 @@ public class SimilarityGame extends AppCompatActivity implements IObserver {
                     textView=findViewById(i);
                     answer.append(textView.getText());
                 }
-                Toast.makeText(this, Boolean.toString(answer.toString().equals(sourceAnswer)), Toast.LENGTH_SHORT).show();
+
                 if(answer.toString().equals(sourceAnswer))
                 {
                     level++;
+                    Toast.makeText(this, "Great! Try The Next Level", Toast.LENGTH_SHORT).show();
                     levelView.setText(Integer.toString(level));
                     scoreInt=Integer.valueOf(score.getText().toString());
                     scoreInt+=10;
@@ -326,6 +328,7 @@ public class SimilarityGame extends AppCompatActivity implements IObserver {
                 {
                     if(livesInt!=0)
                     {
+                        Toast.makeText(this, "Wrong Answer,Try Again", Toast.LENGTH_SHORT).show();
                         livesInt--;
                         lives.setText(Integer.toString(livesInt));
                         answer=new StringBuilder();

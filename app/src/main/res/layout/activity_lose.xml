@@ -68,7 +68,7 @@
         android:layout_height="130dp"
         android:fontFamily="@font/concert_one"
         android:gravity="center"
-        android:text="END GAME"
+        android:text="@string/endGame"
         android:textSize="60sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

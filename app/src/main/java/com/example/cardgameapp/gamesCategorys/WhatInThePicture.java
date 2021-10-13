@@ -86,7 +86,6 @@ public class WhatInThePicture extends AppCompatActivity {
         hartCountText =(TextView) findViewById(R.id.WIThartCount);
         animShake = AnimationUtils.loadAnimation(this, R.anim.shake);
         levelImage = (ImageView) findViewById(R.id.WITPlevelImage);
-        backBtn =  (ImageView) findViewById(R.id.WITPbackBtn);
         answerLettersLayout = (LinearLayout) findViewById(R.id.answerLayout);
         lettersLayoutl = (LinearLayout) findViewById(R.id.WITPletters);
         gameLevelText = (TextView) findViewById(R.id.WITPlevel);

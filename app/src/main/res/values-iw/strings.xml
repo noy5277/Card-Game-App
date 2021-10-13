@@ -11,11 +11,20 @@
     <string name="choose">בחר שפה</string>
     <string name="avatar">מהי הדמות שלך</string>
     <string name="back">חזור</string>
-    <string name="What_is_in_the_picture">מה בתמונה</string>
-    <string name="Similar">מה דומה</string>
-    <string name="Different">מה שונה</string>
+    <string name="What_is_in_the_picture">זהה את התמונה</string>
+    <string name="Similar">מצא את הדומה</string>
+    <string name="Different">מצא את השונה</string>
     <string name="string_login_b_text">התחבר</string>
     <string name="email_address">אימייל</string>
     <string name="getContinue">המשך</string>
-
+    <string name="fui_password_hint">סיסמא</string>
+    <string name="register">הרשמה</string>
+    <string name="endGame">המשחק נגמר</string>
+    <string name="yourScore">תוצאה</string>
+    <string name="play">התחל</string>
+    <string name="nickname">שם משתמש</string>
+    <string name="fullname">שם מלא</string>
+    <string name="level">שלב</string>
+    <string name="quit">יציאה</string>
+    <string name="next">הבא</string>
 </resources>
