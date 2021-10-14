@@ -5,10 +5,41 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
+        android:name=".Database.DaoFirebaseImpl"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CardGameApp">
+        <activity
+            android:name=".gamesCategorys.WhatIsTheDifferent"
+            android:exported="true" />
+        <activity
+            android:name=".SimilarityGame"
+            android:exported="true" />
+        <activity
+            android:name=".Avatar"
+            android:exported="true" />
+        <activity
+            android:name=".Win"
+            android:exported="true" />
+        <activity
+            android:name=".Score"
+            android:exported="true" />
+        <activity
+            android:name=".gamesCategorys.WhatInThePicture"
+            android:exported="true" />
+        <activity
+            android:name=".Category"
+            android:exported="true" />
+        <activity
+            android:name=".MainGame"
+            android:exported="true" />
+        <activity
+            android:name=".userLogIn.RegistrUserActivity"
+            android:exported="true" />
+        <activity
+            android:name=".userLogIn.LogInActivity"
+            android:exported="true" />
         <activity
             android:name=".Settings"
             android:exported="true" />
