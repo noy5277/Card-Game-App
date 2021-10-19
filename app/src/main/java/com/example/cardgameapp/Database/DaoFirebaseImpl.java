@@ -33,7 +33,7 @@ public class DaoFirebaseImpl implements IDao {
         this.mSameGameTable=FirebaseDatabase.getInstance().getReference("SameGame");
         this.mAuthDB=FirebaseAuth.getInstance();
         this.mDifferenTable=FirebaseDatabase.getInstance().getReference("Different");
-        this.userId=FirebaseAuth.getInstance().getCurrentUser().getUid();
+        //this.userId=FirebaseAuth.getInstance().getCurrentUser().getUid();
     }
 
     public static DaoFirebaseImpl getInstance() {
@@ -50,7 +50,7 @@ public class DaoFirebaseImpl implements IDao {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isComplete())
                 {
-                    mUsersTable.child(userId).setValue(user);
+                    mUsersTable.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(user);
                 }
             }
         });
