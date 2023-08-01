@@ -50,7 +50,7 @@ public class DaoFirebaseImpl implements IDao {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isComplete())
                 {
-                    mUsersTable.child(userId).setValue(user);
+                    mUsersTable.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(user);
                 }
             }
         });

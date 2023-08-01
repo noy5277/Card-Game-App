@@ -6,6 +6,7 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -30,6 +31,7 @@ public class RegistrUserActivity extends AppCompatActivity implements View.OnCli
     FirebaseAuth fAuth;
     private User user;
     private static IDao DB;
+    private ProgressBar progressBar;
     public static final String INPUT_AVATAR="Avatar.INPUT_AVATAR";
 
 
@@ -43,6 +45,7 @@ public class RegistrUserActivity extends AppCompatActivity implements View.OnCli
         mPassword = (EditText)findViewById(R.id.registerPasswordInput);
         mUserName=(EditText)findViewById(R.id.registerUserNameInput);
         mRegister = (Button)findViewById(R.id.registerBtn);
+        progressBar=findViewById(R.id.progressBar2);
         mRegister.setOnClickListener(this);
         fAuth = FirebaseAuth.getInstance();
         DB= DaoFirebaseImpl.getInstance();
@@ -51,6 +54,7 @@ public class RegistrUserActivity extends AppCompatActivity implements View.OnCli
 
     @Override
     public void onClick(View v) {
+        progressBar.setVisibility(View.VISIBLE);
         switch (v.getId())
         {
             case R.id.registerBtn:
@@ -97,6 +101,7 @@ public class RegistrUserActivity extends AppCompatActivity implements View.OnCli
         try{
             DB.writeNewUser(user);
             Toast.makeText(RegistrUserActivity.this,"User has been registered",Toast.LENGTH_LONG).show();
+            Thread.sleep(9000);
             startActivity(new Intent(RegistrUserActivity.this, MainGame.class));
         }catch (Exception e)
         {
